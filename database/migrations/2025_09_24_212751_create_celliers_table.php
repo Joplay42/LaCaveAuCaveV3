@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('celliers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_utilisateur');
+            $table->string('nom_cellier', 100)->notNullable();
+            $table->string('emplacement', 150)->nullable();
             $table->timestamps();
+
+            $table->foreign('id_utilisateur')->references('id')->on('users');
         });
     }
 

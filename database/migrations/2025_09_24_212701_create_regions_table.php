@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_pays');
+            $table->string('nom_region', 100)->notNullable();
             $table->timestamps();
+
+            $table->foreign('id_pays')->references('id')->on('pays');
         });
     }
 

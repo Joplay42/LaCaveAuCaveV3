@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pays', function (Blueprint $table) {
             $table->id();
+            $table->string('nom_pays', 100)->notNullable();
             $table->timestamps();
         });
     }
