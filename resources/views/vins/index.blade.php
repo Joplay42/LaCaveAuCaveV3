@@ -2,34 +2,35 @@
 
 @section('content')
 <h1>Liste des Vins</h1>
-<a href="{{ route('vins.create') }}" class="btn btn-primary">Ajouter un Vin</a>
+<a href="{{ route('vins.create') }}" class="btn-connexion">Ajouter un Vin</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Région</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($vins as $vin)
-        <tr>
-            <td>{{ $vin->id }}</td>
-            <td>{{ $vin->nom }}</td>
-            <td>{{ $vin->region }}</td>
-            <td>
-                <a href="{{ route('vins.show', $vin->id) }}" class="btn btn-info">Voir</a>
-                <a href="{{ route('vins.edit', $vin->id) }}" class="btn btn-warning">Modifier</a>
-                <form action="{{ route('vins.destroy', $vin->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<div id="contenu">
+    @foreach ($vins as $vin)
+    @php
+    $isEfface = isset($vin->efface) && $vin->efface;
+    @endphp
+    <div class="{{ $isEfface ? 'carteVinEfface' : 'carteVin' }}">
+        @if($vin->image)
+        <img src="{{ $vin->image }}" alt="{{ $vin->nom_vin ?? $vin->nom }}">
+        @endif
+        <h2 class="titreArticle">
+            {{ $vin->nom_vin ?? $vin->nom }}
+            @if($isEfface)
+            <span class="badge-efface">SUPPRIMÉ</span>
+            @endif
+        </h2>
+        <p>Région : {{ $vin->region->nom_region ?? 'N/A' }}</p>
+        <p>Prix : {{ number_format($vin->prix, 2, ',', ' ') }} €</p>
+        @if($isEfface)
+        <p><em>Ce vin est marqué comme supprimé.</em></p>
+        @endif
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion">Voir</a>
+            <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">Modifier</a>
+            <a href="{{ route('vins.destroy', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Supprimer</a>
+
+        </div>
+    </div>
+    @endforeach
+</div>
 @endsection
