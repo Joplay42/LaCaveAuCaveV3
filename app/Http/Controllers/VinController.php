@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vin;
+use App\Models\Pays;
+use App\Models\Region;
+use Illuminate\Support\Facades\Validator;
 
 class VinController extends Controller
 {
@@ -21,7 +24,9 @@ class VinController extends Controller
      */
     public function create()
     {
-        //
+        $pays = Pays::all();
+        $regions = Region::all();
+        return view('vins.create', compact('pays', 'regions'));
     }
 
     /**
@@ -29,7 +34,23 @@ class VinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nom_vin' => 'required',
+            'id_millesime' => 'required',
+            'id_pays' => 'required',
+            'id_region' => 'required',
+            'cepage' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'prix' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('warning','Tous les champs sont requis');
+        } else {
+            Vin::create($request->all());
+            return redirect('/')->with('success', 'article Ajouté avec succès');
+        }
     }
 
     /**
