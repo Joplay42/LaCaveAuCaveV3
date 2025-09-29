@@ -42,7 +42,11 @@
         <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
             <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion">Voir</a>
             <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">Modifier</a>
-            <a href="{{ route('vins.destroy', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Supprimer</a>
+            @if(!$isEfface)
+            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Supprimer</a>
+            @else
+            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">Rétablir</a>
+            @endif
         </div>
     </div>
     @endforeach

@@ -1,7 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<a href="{{ route('vins.index') }}" class="btn-retour">← Retour</a>
+<div style="display:flex; flex-direction:column; align-items:center;">
+    <div style="margin:2rem 0 1.5rem 0; width:100%; max-width:600px;">
+        <p style="color:#c40707; font-weight:bold; text-align:center; font-size:1.2rem;">
+            Voulez-vous vraiment supprimer définitivement ce vin ?
+        </p>
+
+        <a href="{{ route('vins.destroy', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Oui, supprimer définitivement</a>
+
+        <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion" style="margin-left:1rem;">Annuler</a>
+    </div>
+</div>
 
 <section class="info-section vin-detail">
     <div class="info-image">
@@ -9,21 +19,8 @@
             alt="Bouteille {{ $vin->nom_vin }}"
             loading="lazy" />
     </div>
+
     <div class="info-text">
-        <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">Modifier</a>
-
-        @if(!$vin->efface)
-
-        <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Effacer</a>
-
-        @else
-
-        <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">Rétablir</a>
-
-        <a href="{{ route('vins.confirmDelete', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Supprimer définitivement</a>
-
-        @endif
-
         <h2>
             {{ $vin->nom_vin }}
             @if($vin->millesime && $vin->millesime->annee)
@@ -48,10 +45,6 @@
             </span>
         </p>
         @endif
-
-        <div>
-            <a href="#" class="btn-connexion">Ajouter au cellier</a>
-        </div>
     </div>
 </section>
 @endsection

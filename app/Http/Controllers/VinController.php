@@ -105,6 +105,23 @@ class VinController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $vin = Vin::findOrFail($id);
+        $vin->delete();
+        return redirect('/')->with('success', 'article Supprimé avec succès');
+    }
+
+    public function toggleEfface($id)
+    {
+        $vin = Vin::findOrFail($id);
+        $vin->efface = !$vin->efface;
+        $vin->save();
+
+        return redirect()->back()->with('success', 'Statut effacé modifié avec succès');
+    }
+
+    public function confirmDelete($id)
+    {
+        $vin = Vin::findOrFail($id);
+        return view('vins.confirmDelete', compact('vin'));
     }
 }
