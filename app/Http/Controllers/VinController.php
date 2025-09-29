@@ -46,7 +46,7 @@ class VinController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('warning','Tous les champs sont requis');
+            return redirect()->back()->with('warning', 'Tous les champs sont requis');
         } else {
             Vin::create($request->all());
             return redirect('/')->with('success', 'article Ajouté avec succès');
@@ -68,15 +68,36 @@ class VinController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $vin = Vin::findOrFail($id);
+        $pays = Pays::all();
+        $regions = Region::all();
+        return view('vins.edit', compact('pays', 'regions', 'vin'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nom_vin' => 'required',
+            'id_millesime' => 'required',
+            'id_pays' => 'required',
+            'id_region' => 'required',
+            'cepage' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'prix' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('warning', 'Tous les champs sont requis');
+        } else {
+
+            $vin = Vin::findOrFail($id);
+            $vin->update($request->all());
+            return redirect('/')->with('success', 'article Modifié avec succès');
+        }
     }
 
     /**

@@ -6,9 +6,9 @@
     <h2>Ajouter un vin</h2>
 
     @if ($message = Session::get('warning'))
-        <div class="alert alert-warning">
-            <p>{{ $message }}</p>
-        </div>
+    <div class="alert alert-warning">
+        <p>{{ $message }}</p>
+    </div>
 
     @endif
 
