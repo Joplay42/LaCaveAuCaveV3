@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AProposController;
 use App\Http\Controllers\VinController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,8 @@ Route::prefix('vins')->controller(VinController::class)->group(function () {
     Route::get('/{id}/edit', 'edit')->name('vins.edit');
     Route::put('/{id}', 'update')->name('vins.update');
     Route::delete('/{id}', 'destroy')->name('vins.destroy');
+});
+
+Route::prefix('apropos')->controller(AProposController::class)->group(function () {
+    Route::get('/', 'index')->name('apropos');
 });

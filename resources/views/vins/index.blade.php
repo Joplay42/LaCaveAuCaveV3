@@ -29,7 +29,6 @@
             <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion">Voir</a>
             <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">Modifier</a>
             <a href="{{ route('vins.destroy', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Supprimer</a>
-
         </div>
     </div>
     @endforeach
