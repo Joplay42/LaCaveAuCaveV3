@@ -1,6 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
+<section class="info-section">
+    <div class="info-text">
+        <h2>Découvrez Nos Vins Exclusifs</h2>
+        <p>
+            Explorez notre sélection unique de vins provenant des meilleurs vignobles du monde. Chaque bouteille est choisie avec soin pour vous offrir une expérience exceptionnelle.
+        </p>
+        <a href="#" class="btn-connexion">Voir la collection</a>
+    </div>
+    <div class="info-image">
+        <img src="{{ asset('images/Image-Accueil.jpg') }}" alt="Image accueil" />
+    </div>
+</section>
+
 <h1>Liste des Vins</h1>
 <a href="{{ route('vins.create') }}" class="btn-connexion">Ajouter un Vin</a>
 
