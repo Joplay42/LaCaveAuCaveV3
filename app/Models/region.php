@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class region extends Model
+class Region extends Model
 {
     use HasFactory;
 
@@ -19,6 +19,6 @@ class region extends Model
     // Relations
     public function pays()
     {
-        return $this->belongsTo(pays::class, 'id_pays');
+        return $this->belongsTo(Pays::class, 'id_pays');
     }
 }
