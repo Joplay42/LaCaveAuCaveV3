@@ -1,0 +1,510 @@
+/* Pour pouvoir utiliser une hauteur (height) ou une hauteur minimale
+   (min-height) sur un bloc, il faut que son parent direct ait lui-même une
+   hauteur déterminée (donc toute valeur de height sauf "auto": hauteur en
+   pixels, em, autres unités...).
+   Si la hauteur du parent est en pourcentage, elle se réfère alors à la
+   hauteur du «grand-père», et ainsi de suite.
+   Pour pouvoir utiliser un "min-height: 100%" sur div#global, il nous faut:
+   - un parent (body) en "height: 100%";
+   - le parent de body également en "height: 100%". */
+html,
+body {
+    height: 100%;
+}
+
+/* Typographie */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2a2a2a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #dcdcdc;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 500;
+    margin: 0 0 0.75rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #6c3483;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    max-width: 60ch;
+}
+
+.titreArticle {
+    margin-bottom: 0px;
+}
+
+#global {
+    min-height: 100%;
+    width: 70%;
+    margin: auto;
+    /* Permet de centrer la div */
+    text-align: justify;
+    padding: 5px 20px;
+}
+
+.info-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 3rem 0;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.info-text {
+    flex: 1 1 400px;
+    color: #eaeaea;
+}
+
+.info-text h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.info-text p {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #cfcfcf;
+}
+
+.info-image {
+    flex: 1 1 400px;
+}
+
+.info-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    display: block;
+}
+
+#contenu {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 30px 0;
+    box-sizing: border-box;
+    justify-content: space-between;
+    gap: 30px 0;
+}
+
+.carteVin {
+    background-color: #1f1f1f;
+    color: #eaeaea;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-width: 31%;
+}
+
+.carteVin:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.carteVin img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.carteVin .titreArticle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 15px 15px 5px 15px;
+    color: #ffffff;
+}
+
+.carteVin p {
+    font-size: 0.95rem;
+    margin: 5px 15px;
+    color: #cfcfcf;
+}
+
+.carteVin a {
+    margin: 15px;
+    padding: 10px 15px;
+    background-color: #6c3483;
+    color: #fff;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s, transform 0.2s;
+    align-self: start;
+}
+
+.carteVin a:hover {
+    background-color: #512e5f;
+    transform: translateY(-2px) scale(1.05);
+}
+
+.navigation-bar {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background: #1f1f1f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    gap: 1rem;
+}
+
+.navigation-bar a:first-child h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.nav-spacer {
+    flex: 1;
+}
+
+#piedBlog {
+    background-color: #1f1f1f;
+    color: #cfcfcf;
+    text-align: center;
+    padding: 2rem 1rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+    border-top: 2px solid #6c3483;
+}
+
+#piedBlog p {
+    margin: 0;
+}
+
+#piedBlog a {
+    color: #ffb347;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#piedBlog a:hover {
+    color: #ffffff;
+}
+
+#titreReponses {
+    font-size: 100%;
+}
+
+.btn-connexion {
+    display: inline-block;
+    height: fit-content;
+    padding: 10px 24px;
+    background-color: #6c3483;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(108, 52, 131, 0.15);
+    transition: background 0.2s, transform 0.2s;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.btn-connexion:hover,
+.btn-connexion:focus {
+    background-color: #512e5f;
+    transform: translateY(-2px) scale(1.05);
+    color: #fff;
+    text-decoration: none;
+}
+
+body.login-page {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #dcdcdc;
+}
+
+.login-container {
+    background: #2c2c2c;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.login-container input[type="text"],
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #555;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #3c3c3c;
+    color: #dcdcdc;
+}
+
+.login-container input[type="text"]::placeholder,
+.login-container input[type="email"]::placeholder,
+.login-container input[type="password"]::placeholder {
+    color: #a9a9a9;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6c3483;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.login-container button:hover {
+    background-color: #512e5f;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #a9a9a9;
+}
+
+.btn-retour {
+    display: inline-block;
+    padding: 8px 18px;
+    background: #6c3483;
+    color: #fff;
+    font-size: 1.1em;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 1px 6px rgba(108, 52, 131, 0.1);
+    margin: 10px 0 0 10px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-retour:hover,
+.btn-retour:focus {
+    background: #512e5f;
+    color: #fff;
+    text-decoration: none;
+}
+
+.carteVinEfface {
+    background-color: #2a1f1f; /* Fond plus sombre avec une teinte rouge */
+    color: #eaeaea;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(196, 7, 7, 0.3); /* Ombre rouge */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-width: 31%;
+    border: 2px solid #c40707; /* Bordure rouge */
+    opacity: 0.8; /* Légèrement transparent */
+    position: relative;
+}
+
+.carteVinEfface:hover {
+    transform: translateY(-3px); /* Moins de mouvement au hover */
+    box-shadow: 0 8px 16px rgba(196, 7, 7, 0.4);
+}
+
+.carteVinEfface img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(50%) opacity(0.7); /* Image en nuances de gris et transparente */
+}
+
+.carteVinEfface .titreArticle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 15px 15px 5px 15px;
+    color: #ffcccc; /* Couleur plus claire pour le texte */
+}
+
+.carteVinEfface p {
+    font-size: 0.95rem;
+    margin: 5px 15px;
+    color: #cfcfcf;
+}
+
+.carteVinEfface p em {
+    color: #ff9999;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.carteVinEfface a {
+    margin: 15px;
+    padding: 10px 15px;
+    background-color: #8b0000; /* Rouge plus foncé */
+    color: #fff;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    border-radius: 25px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s, transform 0.2s;
+    align-self: start;
+}
+
+.carteVinEfface a:hover {
+    background-color: #660000;
+    transform: translateY(-2px) scale(1.02); /* Animation plus subtile */
+}
+
+/* Badge "SUPPRIMÉ" */
+.badge-efface {
+    background-color: #c40707;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Effet de rayure diagonale optionnel */
+.carteVinEfface::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(196, 7, 7, 0.1) 10px,
+        rgba(196, 7, 7, 0.1) 20px
+    );
+    pointer-events: none; /* Permet de cliquer à travers l'overlay */
+}
+
+/* Container du formulaire */
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px 25px;
+    background: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    font-family: Arial, sans-serif;
+}
+
+/* Titre */
+form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6b1a1a;
+    font-size: 1.5em;
+}
+
+/* Labels + Inputs */
+form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+    color: #333;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    transition: border 0.2s;
+}
+
+form input[type="text"]:focus,
+form textarea:focus {
+    border-color: #6b1a1a;
+    outline: none;
+    box-shadow: 0 0 5px rgba(107, 26, 26, 0.3);
+}
+
+/* Zone de texte */
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Boutons */
+form input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 18px;
+    background: #6b1a1a;
+    border: none;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background: #922020;
+}
+
+/* Bouton Annuler (style différent) */
+form[action*="Adminsvins"] input[type="submit"] {
+    background: #aaa;
+    margin-left: 10px;
+}
+
+form[action*="Adminsvins"] input[type="submit"]:hover {
+    background: #888;
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Vin;
 
 class VinController extends Controller
 {
@@ -11,7 +12,8 @@ class VinController extends Controller
      */
     public function index()
     {
-        //
+        $vins = Vin::all();
+        return view('vins', compact('vins'));
     }
 
     /**
