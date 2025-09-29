@@ -13,7 +13,7 @@ class VinController extends Controller
     public function index()
     {
         $vins = Vin::all();
-        return view('vins', compact('vins'));
+        return view('vins.index', compact('vins'));
     }
 
     /**
