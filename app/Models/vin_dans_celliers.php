@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class vin_dans_celliers extends Model
+class Vin_dans_celliers extends Model
 {
     use HasFactory;
 
@@ -20,11 +20,11 @@ class vin_dans_celliers extends Model
     // Relations
     public function vin()
     {
-        return $this->belongsTo(vin::class, 'id_vin');
+        return $this->belongsTo(Vin::class, 'id_vin');
     }
 
     public function cellier()
     {
-        return $this->belongsTo(cellier::class, 'id_cellier');
+        return $this->belongsTo(Cellier::class, 'id_cellier');
     }
 }

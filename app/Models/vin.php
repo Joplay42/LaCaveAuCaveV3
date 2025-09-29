@@ -26,16 +26,16 @@ class vin extends Model
     // Relations
     public function millesime()
     {
-        return $this->belongsTo(millesime::class, 'id_millesime');
+        return $this->belongsTo(Millesime::class, 'id_millesime');
     }
 
     public function pays()
     {
-        return $this->belongsTo(pays::class, 'id_pays');
+        return $this->belongsTo(Pays::class, 'id_pays');
     }
 
     public function region()
     {
-        return $this->belongsTo(region::class, 'id_region');
+        return $this->belongsTo(Region::class, 'id_region');
     }
 }

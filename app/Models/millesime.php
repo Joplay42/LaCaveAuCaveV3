@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class millesime extends Model
+class Millesime extends Model
 {
     use HasFactory;
 
@@ -18,6 +18,6 @@ class millesime extends Model
     // Relations
     public function vins()
     {
-        return $this->hasMany(vin::class, 'id_millesime');
+        return $this->hasMany(Vin::class, 'id_millesime');
     }
 }
