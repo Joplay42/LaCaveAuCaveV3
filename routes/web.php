@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(VinController::class)->group(function () {
+Route::get('/', [VinController::class, 'index']);
 
-    Route::get('/', 'index')->name('vins.index');
-    Route::get('/vins/create', 'create')->name('vins.create');
-    Route::post('/vins', 'store')->name('vins.store');
-    Route::get('/vins/{id}', 'show')->name('vins.show');
-    Route::get('/vins/{id}/edit', 'edit')->name('vins.edit');
-    Route::put('/vins/{id}', 'update')->name('vins.update');
-    Route::delete('/vins/{id}', 'destroy')->name('vins.destroy');
+Route::prefix('vins')->controller(VinController::class)->group(function () {
+    Route::get('/create', 'create')->name('vins.create');
+    Route::post('/', 'store')->name('vins.store');
+    Route::get('/{id}', 'show')->name('vins.show');
+    Route::get('/{id}/edit', 'edit')->name('vins.edit');
+    Route::put('/{id}', 'update')->name('vins.update');
+    Route::delete('/{id}', 'destroy')->name('vins.destroy');
 });
