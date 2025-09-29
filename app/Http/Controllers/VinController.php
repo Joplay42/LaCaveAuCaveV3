@@ -37,7 +37,9 @@ class VinController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $vin = Vin::findOrFail($id);
+        $isEfface = $vin->efface; // Assuming 'efface' is a boolean attribute in the Vin model
+        return view('vins.show', compact('vin', 'isEfface'));
     }
 
     /**

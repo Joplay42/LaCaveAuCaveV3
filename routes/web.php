@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [VinController::class, 'index']);
+Route::get('/', [VinController::class, 'index'])->name('vins.index');
 
 Route::prefix('vins')->controller(VinController::class)->group(function () {
     Route::get('/create', 'create')->name('vins.create');

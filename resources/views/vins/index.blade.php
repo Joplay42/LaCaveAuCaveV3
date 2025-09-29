@@ -20,6 +20,7 @@
             @endif
         </h2>
         <p>Région : {{ $vin->region->nom_region ?? 'N/A' }}</p>
+        <p>Pays : {{ $vin->pays->nom_pays ?? 'N/A' }}</p>
         <p>Prix : {{ number_format($vin->prix, 2, ',', ' ') }} €</p>
         @if($isEfface)
         <p><em>Ce vin est marqué comme supprimé.</em></p>
