@@ -48,7 +48,7 @@
             <p style="margin-bottom: 0.5rem;">Base de données utilisée par l'application :</p>
         </div>
         <div class="info-image">
-            <img src="{{ asset('Assets/bd.png') }}" alt="Schéma de la base de données" />
+            <img src="{{ asset('images/bd.png') }}" alt="Schéma de la base de données" />
         </div>
     </div>
 </div>
