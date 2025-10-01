@@ -7,7 +7,11 @@
             Voulez-vous vraiment supprimer définitivement ce vin ?
         </p>
 
-        <a href="{{ route('vins.destroy', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Oui, supprimer définitivement</a>
+        <form action="{{ route('vins.destroy', $vin->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn-connexion" style="background:#c40707;">Supprimer définitivement</button>
+        </form>
 
         <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion" style="margin-left:1rem;">Annuler</a>
     </div>
