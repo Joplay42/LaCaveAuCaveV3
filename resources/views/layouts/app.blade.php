@@ -37,6 +37,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="lang/en"><img src="{{asset('images/flag/en.png')}}" width="25px"> English</a>
                     <a class="dropdown-item" href="lang/fr"><img src="{{asset('images/flag/fr.png')}}" width="25px"> Français</a>
+                    <a class="dropdown-item" href="lang/jap"><img src="{{asset('images/flag/jap.png')}}" width="25px"> 日本語</a>
                 </div>
             </div>
         </header>
