@@ -51,10 +51,19 @@
                         @endauth
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="lang/en"><img src="{{asset('images/flag/en.png')}}" width="25px"> English</a>
-                    <a class="dropdown-item" href="lang/fr"><img src="{{asset('images/flag/fr.png')}}" width="25px"> Français</a>
-                    <a class="dropdown-item" href="lang/jap"><img src="{{asset('images/flag/jap.png')}}" width="25px"> 日本語</a>
+                <div class="lang-switcher" aria-label="Sélection de langue">
+                    <a class="lang-option {{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{{ url('lang/en') }}">
+                        <img src="{{ asset('images/flag/en.png') }}" alt="English" />
+                        <span>EN</span>
+                    </a>
+                    <a class="lang-option {{ app()->getLocale() === 'fr' ? 'active' : '' }}" href="{{ url('lang/fr') }}">
+                        <img src="{{ asset('images/flag/fr.png') }}" alt="Français" />
+                        <span>FR</span>
+                    </a>
+                    <a class="lang-option {{ app()->getLocale() === 'jap' ? 'active' : '' }}" href="{{ url('lang/jap') }}">
+                        <img src="{{ asset('images/flag/jap.png') }}" alt="日本語" />
+                        <span>日本語</span>
+                    </a>
                 </div>
                 </div>
                 <div class="car-body">
