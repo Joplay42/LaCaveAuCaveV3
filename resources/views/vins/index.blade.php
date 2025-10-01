@@ -4,19 +4,19 @@
 
 <section class="info-section">
     <div class="info-text">
-        <h2>Découvrez Nos Vins Exclusifs</h2>
+        <h2>{{ __('app.discover_wines') }}</h2>
         <p>
-            Explorez notre sélection unique de vins provenant des meilleurs vignobles du monde. Chaque bouteille est choisie avec soin pour vous offrir une expérience exceptionnelle.
+            {{ __('app.explore_selection') }}
         </p>
-        <a href="#" class="btn-connexion">Voir la collection</a>
+        <a href="#" class="btn-connexion">{{ __('app.see_collection') }}</a>
     </div>
     <div class="info-image">
-        <img src="{{ asset('images/Image-Accueil.jpg') }}" alt="Image accueil" />
+        <img src="{{ asset('images/Image-Accueil.jpg') }}" alt="{{ __('app.image_accueil_alt') }}" />
     </div>
 </section>
 
-<h1>Liste des Vins</h1>
-<a href="{{ route('vins.create') }}" class="btn-connexion">Ajouter un Vin</a>
+<h1>{{ __('app.wine_list') }}</h1>
+<a href="{{ route('vins.create') }}" class="btn-connexion">{{ __('app.add_wine') }}</a>
 
 <div id="contenu">
     @foreach ($vins as $vin)
@@ -30,22 +30,22 @@
         <h2 class="titreArticle">
             {{ $vin->nom_vin ?? $vin->nom }}
             @if($isEfface)
-            <span class="badge-efface">SUPPRIMÉ</span>
+            <span class="badge-efface">{{ __('app.deleted') }}</span>
             @endif
         </h2>
-        <p>Région : {{ $vin->region->nom_region ?? 'N/A' }}</p>
-        <p>Pays : {{ $vin->pays->nom_pays ?? 'N/A' }}</p>
-        <p>Prix : {{ number_format($vin->prix, 2, ',', ' ') }} €</p>
+        <p>{{ __('app.region') }} : {{ $vin->region->nom_region ?? 'N/A' }}</p>
+        <p>{{ __('app.country') }} : {{ $vin->pays->nom_pays ?? 'N/A' }}</p>
+        <p>{{ __('app.price') }} : {{ number_format($vin->prix, 2, ',', ' ') }} €</p>
         @if($isEfface)
-        <p><em>Ce vin est marqué comme supprimé.</em></p>
+        <p><em>{{ __('app.marked_deleted') }}</em></p>
         @endif
         <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-            <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion">Voir</a>
-            <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">Modifier</a>
+            <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion">{{ __('app.see') }}</a>
+            <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">{{ __('app.edit_wine') }}</a>
             @if(!$isEfface)
-            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">Supprimer</a>
+            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_wine') }}</a>
             @else
-            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">Rétablir</a>
+            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">{{ __('app.restore_wine') }}</a>
             @endif
         </div>
     </div>

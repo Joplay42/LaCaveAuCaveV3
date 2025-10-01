@@ -4,23 +4,23 @@
 <div style="display:flex; flex-direction:column; align-items:center;">
     <div style="margin:2rem 0 1.5rem 0; width:100%; max-width:600px;">
         <p style="color:#c40707; font-weight:bold; text-align:center; font-size:1.2rem;">
-            Voulez-vous vraiment supprimer définitivement ce vin ?
+            {{ __('app.confirm_delete') }}
         </p>
 
         <form action="{{ route('vins.destroy', $vin->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn-connexion" style="background:#c40707;">Supprimer définitivement</button>
+            <button type="submit" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_permanently') }}</button>
         </form>
 
-        <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion" style="margin-left:1rem;">Annuler</a>
+        <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion" style="margin-left:1rem;">{{ __('app.cancel') }}</a>
     </div>
 </div>
 
 <section class="info-section vin-detail">
     <div class="info-image">
         <img src="{{ $vin->image ?? asset('Assets/Image-Accueil.jpg') }}"
-            alt="Bouteille {{ $vin->nom_vin }}"
+            alt="{{ __('app.bottle_alt', ['name' => $vin->nom_vin]) }}"
             loading="lazy" />
     </div>
 
@@ -36,10 +36,10 @@
         <p>{!! nl2br(e($vin->description)) !!}</p>
         @endif
 
-        <p><strong>Pays:</strong> {{ $vin->pays->nom_pays ?? 'Pays inconnu' }}</p>
-        <p><strong>Région:</strong> {{ $vin->region->nom_region ?? 'Région inconnue' }}</p>
+        <p><strong>{{ __('app.country') }}:</strong> {{ $vin->pays->nom_pays ?? __('app.unknown_country') }}</p>
+        <p><strong>{{ __('app.region') }}:</strong> {{ $vin->region->nom_region ?? __('app.unknown_region') }}</p>
         @if($vin->cepage)
-        <p><strong>Cépage:</strong> {{ $vin->cepage }}</p>
+        <p><strong>{{ __('app.grape') }}:</strong> {{ $vin->cepage }}</p>
         @endif
 
         @if(isset($vin->prix))

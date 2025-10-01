@@ -3,6 +3,7 @@
 use App\Http\Controllers\AProposController;
 use App\Http\Controllers\VinController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,5 @@ Route::prefix('vins')->controller(VinController::class)->group(function () {
 Route::prefix('apropos')->controller(AProposController::class)->group(function () {
     Route::get('/', 'index')->name('apropos');
 });
+
+Route::get('/lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
