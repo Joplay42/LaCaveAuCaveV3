@@ -48,7 +48,7 @@
                 </div>
                 </div>
                 <div class="car-body">
-                    <form>
+                    <form onsubmit="return false;">
                         @csrf
                         <div class="form-group">
                             <input type="text" class="typeahead form-control"  id = "vins_search" placeholder = "Rechercher..." > 
