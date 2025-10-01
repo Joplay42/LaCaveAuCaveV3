@@ -124,4 +124,22 @@ class VinController extends Controller
         $vin = Vin::findOrFail($id);
         return view('vins.confirmDelete', compact('vin'));
     }
+
+    public function autocomplete(Request $request) {
+        $search = $request->search;
+        $vins = Vin::orderby('nom_vin','asc')
+                    ->select('id', 'nom_vin')
+                    ->where('nom_vin', 'LIKE', '%'.$search. '%')
+                    ->get();
+
+        $response = array();
+
+        foreach($vins as $vin){
+            $response[] = array(
+                'value' => $vin->id,
+                'label' => $vin->nom_vin
+            );
+        }
+        return response()->json($response);
+    }
 }

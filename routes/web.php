@@ -27,6 +27,7 @@ Route::prefix('vins')->controller(VinController::class)->group(function () {
     Route::delete('/{id}', 'destroy')->name('vins.destroy');
     Route::get('/{id}/toggle-efface', 'toggleEfface')->name('vins.toggleEfface');
     Route::get('/{id}/confirm-delete', 'confirmDelete')->name('vins.confirmDelete');
+    Route::post('/autocomplete', 'autocomplete')->name('autocomplete');
 });
 
 Route::prefix('apropos')->controller(AProposController::class)->group(function () {
