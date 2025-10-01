@@ -79,6 +79,29 @@
                         return false;
                          }
                         });
+                                                // Permet d'appuyer sur Entrée pour aller au premier résultat
+                                                $('#vins_search').on('keydown', function(event) {
+                                                    if (event.keyCode === 13) {
+                                                        event.preventDefault();
+                                                        var search = $(this).val();
+                                                        $.ajax({
+                                                            url: "{{ route('autocomplete') }}",
+                                                            type: 'POST',
+                                                            dataType: 'json',
+                                                            data: {
+                                                                _token: CSRF_TOKEN,
+                                                                search: search
+                                                            },
+                                                            success: function(data) {
+                                                                if (Array.isArray(data) && data.length > 0) {
+                                                                    window.location.href = "/vins/" + data[0].value;
+                                                                } else {
+                                                                    alert("Aucun vin trouvé pour '" + search + "'");
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
                          });
                     </script>
                 </div>

@@ -522,3 +522,107 @@ body.login-page {
     font-size: 0.9em;
     color: #a9a9a9;
 }
+
+/* --- Barre de recherche (header) --- */
+header .car-body {
+    padding: 1rem 0 0.5rem;
+}
+
+/* Neutraliser le style générique des formulaires pour celui du header */
+header .car-body form {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Conteneur d'input si nécessaire */
+header .car-body .form-group {
+    margin: 0;
+}
+
+/* Champ de recherche stylé */
+#vins_search {
+    width: 100%;
+    padding: 14px 48px; /* espace pour l'icône */
+    border-radius: 999px;
+    border: 2px solid #6c3483; /* accent violet */
+    background: #6c3483; /* mauve comme le site */
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 6px 20px rgba(108, 52, 131, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, transform 0.05s ease-in-out;
+
+    /* Icône loupe en SVG inline (teintée violet) */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 16px 50%;
+    background-size: 18px;
+}
+
+#vins_search::placeholder {
+    color: #f3eaff;
+}
+
+#vins_search:hover {
+    border-color: #8a4db0;
+    box-shadow: 0 8px 26px rgba(108, 52, 131, 0.45), 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+#vins_search:focus {
+    border-color: #6c3483;
+    box-shadow: 0 0 0 3px rgba(108, 52, 131, 0.35), 0 12px 28px rgba(0, 0, 0, 0.45);
+    background: #6c3483;
+}
+
+/* jQuery UI Autocomplete - thème sombre cohérent */
+.ui-autocomplete {
+    background: #1f1f1f;
+    border: 1px solid #3a3a3a;
+    color: #eaeaea;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 0.25rem 0;
+    backdrop-filter: blur(2px);
+    z-index: 10000; /* par-dessus le header */
+}
+
+.ui-autocomplete .ui-menu-item-wrapper {
+    padding: 10px 14px;
+    border: none;
+    line-height: 1.25rem;
+}
+
+/* État actif/survol */
+.ui-menu .ui-menu-item-wrapper.ui-state-active,
+.ui-menu .ui-menu-item-wrapper:hover {
+    background: #6c3483;
+    color: #ffffff;
+    border: none;
+}
+
+/* Réinitialiser certains styles jQuery UI par défaut pour coller au thème */
+.ui-widget-content {
+    background: #1f1f1f;
+    color: #eaeaea;
+}
+
+.ui-widget.ui-widget-content {
+    border: 1px solid #3a3a3a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header .car-body {
+        padding: 0.75rem 0.5rem 0.25rem;
+    }
+    #vins_search {
+        font-size: 0.95rem;
+        padding: 12px 40px 12px 44px;
+    }
+}
