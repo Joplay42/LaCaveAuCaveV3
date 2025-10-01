@@ -126,20 +126,30 @@ class VinController extends Controller
     }
 
     public function autocomplete(Request $request) {
-        $search = $request->search;
-        $vins = Vin::orderby('nom_vin','asc')
-                    ->select('id', 'nom_vin')
-                    ->where('nom_vin', 'LIKE', '%'.$search. '%')
-                    ->get();
+        $search = (string) ($request->search ?? '');
 
-        $response = array();
+        $vins = Vin::with([
+                        'millesime:id,annee',
+                        'pays:id,nom_pays',
+                        'region:id,nom_region'
+                    ])
+                    ->where('nom_vin', 'LIKE', '%' . $search . '%')
+                    ->orderBy('nom_vin', 'asc')
+                    ->limit(10)
+                    ->get(['id', 'nom_vin', 'image', 'id_millesime', 'id_pays', 'id_region', 'efface']);
 
-        foreach($vins as $vin){
-            $response[] = array(
+        $response = $vins->map(function ($vin) {
+            return [
                 'value' => $vin->id,
-                'label' => $vin->nom_vin
-            );
-        }
+                'label' => $vin->nom_vin,
+                'image' => $vin->image ?: asset('images/Image-Accueil.jpg'),
+                'annee' => optional($vin->millesime)->annee,
+                'pays' => optional($vin->pays)->nom_pays,
+                'region' => optional($vin->region)->nom_region,
+                'efface' => (bool) ($vin->efface ?? false),
+            ];
+        });
+
         return response()->json($response);
     }
 }
