@@ -28,6 +28,8 @@ return [
     'add_to_cellar' => 'Add to cellar',
     'wine_name' => 'Wine name',
     'millesime' => 'Vintage',
+    'country' => 'Country',
+    'region' => 'Region',
     'select_country' => '--Select a country--',
     'select_region' => '--Select a region--',
     'grape' => 'Grape',

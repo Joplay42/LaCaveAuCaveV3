@@ -28,6 +28,8 @@ return [
     'add_to_cellar' => 'Ajouter au cellier',
     'wine_name' => 'Nom du vin',
     'millesime' => 'Millésime',
+    'country' => 'Pays',
+    'region' => 'Région',
     'select_country' => '--Sélectionnez un pays--',
     'select_region' => '--Sélectionnez une région--',
     'grape' => 'Cépage',

@@ -28,6 +28,8 @@ return [
     'add_to_cellar' => 'セラーに追加',
     'wine_name' => 'ワイン名',
     'millesime' => 'ヴィンテージ',
+    'country' => '国',
+    'region' => '地域',
     'select_country' => '--国を選択--',
     'select_region' => '--地域を選択--',
     'grape' => 'ブドウ品種',
