@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Vin;
 use App\Models\Pays;
 use App\Models\Region;
+use App\Models\Vin_dans_celliers;
 use Illuminate\Support\Facades\Validator;
 
 class VinController extends Controller
@@ -106,6 +107,13 @@ class VinController extends Controller
     public function destroy(string $id)
     {
         $vin = Vin::findOrFail($id);
+
+
+        $vinsDansCellier = Vin_dans_celliers::where('id_vin', $id)->get();
+        foreach ($vinsDansCellier as $vinCellier) {
+            $vinCellier->delete();
+        }
+
         $vin->delete();
         return redirect('/')->with('success', 'article Supprimé avec succès');
     }
@@ -125,18 +133,19 @@ class VinController extends Controller
         return view('vins.confirmDelete', compact('vin'));
     }
 
-    public function autocomplete(Request $request) {
+    public function autocomplete(Request $request)
+    {
         $search = (string) ($request->search ?? '');
 
         $vins = Vin::with([
-                        'millesime:id,annee',
-                        'pays:id,nom_pays',
-                        'region:id,nom_region'
-                    ])
-                    ->where('nom_vin', 'LIKE', '%' . $search . '%')
-                    ->orderBy('nom_vin', 'asc')
-                    ->limit(10)
-                    ->get(['id', 'nom_vin', 'image', 'id_millesime', 'id_pays', 'id_region', 'efface']);
+            'millesime:id,annee',
+            'pays:id,nom_pays',
+            'region:id,nom_region'
+        ])
+            ->where('nom_vin', 'LIKE', '%' . $search . '%')
+            ->orderBy('nom_vin', 'asc')
+            ->limit(10)
+            ->get(['id', 'nom_vin', 'image', 'id_millesime', 'id_pays', 'id_region', 'efface']);
 
         $response = $vins->map(function ($vin) {
             return [
