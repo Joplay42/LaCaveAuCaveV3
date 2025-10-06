@@ -23,7 +23,7 @@ class VinSeeder extends Seeder
                 'id_region' => $faker->numberBetween(1, 10),
                 'cepage' => $faker->word(),
                 'description' => $faker->sentence(),
-                'image' => $faker->imageUrl(),
+                'image' => "https://cdn.futura-sciences.com/buildsv6/images/largeoriginal/7/f/e/7fe22c9dfe_96574_vin-rouge-blanc-rose-difference.jpg",
                 'prix' => $faker->randomFloat(2, 5, 500),
                 'efface' => 0,
             ]);

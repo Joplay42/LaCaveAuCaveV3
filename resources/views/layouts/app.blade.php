@@ -83,7 +83,7 @@
                             <span>FR</span>
                         </a>
                         <a class="lang-option {{ app()->getLocale() === 'jap' ? 'active' : '' }}" href="{{ url('lang/jap') }}">
-                            <img src="{{ asset('images/flag/jap.png') }}" alt="日本語" width="25px" />
+                            <img src="{{ asset('images/flag/jap.png') }}" alt="日本語" />
                             <span>日本語</span>
                         </a>
                     </div>
