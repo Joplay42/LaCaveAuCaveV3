@@ -42,4 +42,5 @@ return [
     'confirm_delete' => 'Voulez-vous vraiment supprimer définitivement ce vin ?',
     'cancel' => 'Annuler',
     'register' => 'S\'inscrire',
+    'manage_wines' => 'Gérer les Vins',
 ];

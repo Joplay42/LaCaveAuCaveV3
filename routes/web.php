@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [VinController::class, 'index'])->name('vins.index');
 
 Route::prefix('vins')->controller(VinController::class)->group(function () {
-    Route::get('/create', 'create')->name('vins.create');
-    Route::post('/', 'store')->name('vins.store');
+    Route::get('/create', 'create')->middleware('Admin')->name('vins.create');
+    Route::post('/', 'store')->middleware('Admin')->name('vins.store');
     Route::get('/{id}', 'show')->name('vins.show');
     Route::get('/{id}/edit', 'edit')->name('vins.edit');
     Route::put('/{id}', 'update')->name('vins.update');

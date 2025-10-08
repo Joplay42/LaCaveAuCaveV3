@@ -42,4 +42,5 @@ return [
     'confirm_delete' => 'このワインを完全に削除してもよろしいですか？',
     'cancel' => 'キャンセル',
     'register' => '登録',
+    'manage_wines' => 'ワインを管理',
 ];

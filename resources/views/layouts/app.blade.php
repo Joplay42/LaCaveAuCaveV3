@@ -64,6 +64,7 @@
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 {{ __('app.logout') }}
                             </a>
+
                             <span class="info-text">{{ __('app.hello_user', ['name' => Auth::user()->name]) }}</span>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
@@ -71,6 +72,7 @@
                             @else
                             <a href="{{ route('login') }}" class="btn-connexion">{{ __('app.login') }}</a>
                             <a href="{{ route('register') }}" class="btn-connexion">{{ __('app.register') }}</a>
+
                             @endauth
                         </div>
                     </div>

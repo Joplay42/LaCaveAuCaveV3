@@ -16,7 +16,9 @@
 </section>
 
 <h1>{{ __('app.wine_list') }}</h1>
+@if(Auth::user() && Auth::user()->role==='admin')
 <a href="{{ route('vins.create') }}" class="btn-connexion">{{ __('app.add_wine') }}</a>
+@endif
 
 <div id="contenu">
     @foreach ($vins as $vin)
@@ -41,11 +43,13 @@
         @endif
         <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
             <a href="{{ route('vins.show', $vin->id) }}" class="btn-connexion">{{ __('app.see') }}</a>
+            @if(Auth::user() && Auth::user()->role==='admin')
             <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">{{ __('app.edit_wine') }}</a>
             @if(!$isEfface)
             <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_wine') }}</a>
             @else
             <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">{{ __('app.restore_wine') }}</a>
+            @endif
             @endif
         </div>
     </div>

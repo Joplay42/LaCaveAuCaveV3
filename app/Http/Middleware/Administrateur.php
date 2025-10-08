@@ -17,18 +17,10 @@ class Administrateur
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
-        
-        //utilisateur non authetifié
-        if(!$user){   
-            return redirect() ->route ('home');
+        if (! Auth::check() || (Auth::user()->role ?? '') !== 'admin') {
+            abort(403);
         }
 
-        // utilisateur authentifié mais pas comme administrateur
-        if ($user->role !== User::ROLE_USER){
-            return redirect() ->route ('home');
-        }   
-        //dd($user->role);
         return $next($request);
     }
 }
