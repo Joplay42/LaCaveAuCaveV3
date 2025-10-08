@@ -69,7 +69,8 @@
                                 @csrf
                             </form>
                             @else
-                            <a href="" class="btn-connexion">{{ __('app.login') }}</a>
+                            <a href="{{ route('login') }}" class="btn-connexion">{{ __('app.login') }}</a>
+                            <a href="{{ route('register') }}" class="btn-connexion">{{ __('app.register') }}</a>
                             @endauth
                         </div>
                     </div>

@@ -41,4 +41,5 @@ return [
     'send' => 'Send',
     'confirm_delete' => 'Are you sure you want to permanently delete this wine?',
     'cancel' => 'Cancel',
+    'register' => 'Register',
 ];

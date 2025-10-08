@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 'name' => $faker->name(),
                 'email' => $faker->unique()->safeEmail(),
                 'password' => Hash::make('password'),
+                'role' => $i === 0 ? \App\Models\User::ROLE_ADMIN : \App\Models\User::ROLE_USER,
             ]);
         }
     }

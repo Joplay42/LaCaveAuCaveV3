@@ -41,4 +41,5 @@ return [
     'send' => 'Envoyer',
     'confirm_delete' => 'Voulez-vous vraiment supprimer définitivement ce vin ?',
     'cancel' => 'Annuler',
+    'register' => 'S\'inscrire',
 ];

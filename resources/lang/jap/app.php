@@ -41,4 +41,5 @@ return [
     'send' => '送信',
     'confirm_delete' => 'このワインを完全に削除してもよろしいですか？',
     'cancel' => 'キャンセル',
+    'register' => '登録',
 ];

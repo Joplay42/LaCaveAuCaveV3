@@ -4,6 +4,7 @@ use App\Http\Controllers\AProposController;
 use App\Http\Controllers\VinController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocalizationController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +36,6 @@ Route::prefix('apropos')->controller(AProposController::class)->group(function (
 });
 
 Route::get('/lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
