@@ -6,9 +6,12 @@
         "dev-all": "concurrently \"php artisan serve\" \"npm run dev\""
     },
     "devDependencies": {
+        "@popperjs/core": "^2.11.6",
         "axios": "^1.1.2",
+        "bootstrap": "^5.2.3",
         "concurrently": "^9.2.1",
         "laravel-vite-plugin": "^2.0.1",
+        "sass": "^1.56.1",
         "vite": "^7.1.9"
     }
 }

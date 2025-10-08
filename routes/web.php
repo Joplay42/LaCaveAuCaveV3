@@ -35,3 +35,11 @@ Route::prefix('apropos')->controller(AProposController::class)->group(function (
 });
 
 Route::get('/lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
