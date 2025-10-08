@@ -10,13 +10,15 @@
             loading="lazy" />
     </div>
     <div class="info-text">
-        <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">{{ __('app.edit_wine') }}</a>
-
-        @if(!$vin->efface)
-        <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_wine') }}</a>
-        @else
-        <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">{{ __('app.restore_wine') }}</a>
-        <a href="{{ route('vins.confirmDelete', $vin->id) }}" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_permanently') }}</a>
+        @if (Auth::user() && Auth::user()->isAdmin())
+            <a href="{{ route('vins.edit', $vin->id) }}" class="btn-connexion">{{ __('app.edit_wine') }}</a>
+            
+            @if(!$vin->efface)
+            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_wine') }}</a>
+            @else
+            <a href="{{ route('vins.toggleEfface', $vin->id) }}" class="btn-connexion">{{ __('app.restore_wine') }}</a>
+            <a href="{{ route('vins.confirmDelete', $vin->id) }}" class="btn-connexion" style="background:#c40707;">{{ __('app.delete_permanently') }}</a>
+            @endif
         @endif
 
         <h2>
