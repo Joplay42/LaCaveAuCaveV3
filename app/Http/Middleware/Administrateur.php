@@ -25,7 +25,7 @@ class Administrateur
         }
 
         // utilisateur authentifié mais pas comme administrateur
-        if ($user->role !== User::admin_role){
+        if ($user->role !== User::ROLE_USER){
             return redirect() ->route ('home');
         }   
         //dd($user->role);
