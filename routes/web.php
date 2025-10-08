@@ -23,11 +23,11 @@ Route::prefix('vins')->controller(VinController::class)->group(function () {
     Route::get('/create', 'create')->middleware('Admin')->name('vins.create');
     Route::post('/', 'store')->middleware('Admin')->name('vins.store');
     Route::get('/{id}', 'show')->name('vins.show');
-    Route::get('/{id}/edit', 'edit')->name('vins.edit');
-    Route::put('/{id}', 'update')->name('vins.update');
-    Route::delete('/{id}', 'destroy')->name('vins.destroy');
-    Route::get('/{id}/toggle-efface', 'toggleEfface')->name('vins.toggleEfface');
-    Route::get('/{id}/confirm-delete', 'confirmDelete')->name('vins.confirmDelete');
+    Route::get('/{id}/edit', 'edit')->middleware('Admin')->name('vins.edit');
+    Route::put('/{id}', 'update')->middleware('Admin')->name('vins.update');
+    Route::delete('/{id}', 'destroy')->middleware('Admin')->name('vins.destroy');
+    Route::get('/{id}/toggle-efface', 'toggleEfface')->middleware('Admin')->name('vins.toggleEfface');
+    Route::get('/{id}/confirm-delete', 'confirmDelete')->middleware('Admin')->name('vins.confirmDelete');
     Route::post('/autocomplete', 'autocomplete')->name('autocomplete');
 });
 
