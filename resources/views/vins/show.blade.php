@@ -5,7 +5,7 @@
 
 <section class="info-section vin-detail">
     <div class="info-image">
-        <img src="{{ $vin->image ?? asset('Assets/Image-Accueil.jpg') }}"
+        <img src="{{ asset('storage/images/upload/' . $vin->image) ?? asset('Images/Image-Accueil.jpg') }}"
             alt="{{ __('app.bottle_alt', ['name' => $vin->nom_vin]) }}"
             loading="lazy" />
     </div>

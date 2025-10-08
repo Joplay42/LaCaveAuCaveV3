@@ -27,7 +27,7 @@
     @endphp
     <div class="{{ $isEfface ? 'carteVinEfface' : 'carteVin' }}">
         @if($vin->image)
-        <img src="{{ $vin->image }}" alt="{{ $vin->nom_vin ?? $vin->nom }}">
+        <img src="{{ asset('storage/images/upload/' . $vin->image) ?? asset('Images/Image-Accueil.jpg') }}" alt="{{ $vin->nom_vin ?? $vin->nom }}">
         @endif
         <h2 class="titreArticle">
             {{ $vin->nom_vin ?? $vin->nom }}

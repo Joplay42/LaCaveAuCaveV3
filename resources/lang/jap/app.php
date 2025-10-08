@@ -43,4 +43,5 @@ return [
     'cancel' => 'キャンセル',
     'register' => '登録',
     'manage_wines' => 'ワインを管理',
+    'currentImage' => '現在の画像'
 ];

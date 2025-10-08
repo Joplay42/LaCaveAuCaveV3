@@ -43,14 +43,30 @@ class VinController extends Controller
             'id_region' => 'required',
             'cepage' => 'required',
             'description' => 'required',
-            'image' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
             'prix' => 'required'
         ]);
+
+        // Validate the file format
+        if ($request->file('image')->isValid()) {
+            $image = $request->file('image');
+            $fileName = time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('images/upload', $fileName, 'public');
+        }
 
         if ($validator->fails()) {
             return redirect()->back()->with('warning', 'Tous les champs sont requis');
         } else {
-            Vin::create($request->all());
+            Vin::create([
+                'nom_vin' => $request->input('nom_vin'),
+                'id_millesime' => $request->input('id_millesime'),
+                'id_pays' => $request->input('id_pays'),
+                'id_region' => $request->input('id_region'),
+                'cepage' => $request->input('cepage'),
+                'description' => $request->input('description'),
+                'image' => $fileName,
+                'prix' => $request->input('prix'),
+            ]);
             return redirect('/')->with('success', 'article Ajouté avec succès');
         }
     }
@@ -88,16 +104,33 @@ class VinController extends Controller
             'id_region' => 'required',
             'cepage' => 'required',
             'description' => 'required',
-            'image' => 'required',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg',
             'prix' => 'required'
         ]);
+
+        // Validate the file format
+        if ($request->file('image') !== null) {
+            $image = $request->file('image');
+            $fileName = time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('images/upload', $fileName, 'public');
+        } else {
+            $fileName = Vin::findOrFail($id)->image;
+        }
 
         if ($validator->fails()) {
             return redirect()->back()->with('warning', 'Tous les champs sont requis');
         } else {
-
             $vin = Vin::findOrFail($id);
-            $vin->update($request->all());
+            $vin->update([
+                'nom_vin' => $request->input('nom_vin'),
+                'id_millesime' => $request->input('id_millesime'),
+                'id_pays' => $request->input('id_pays'),
+                'id_region' => $request->input('id_region'),
+                'cepage' => $request->input('cepage'),
+                'description' => $request->input('description'),
+                'image' => $fileName,
+                'prix' => $request->input('prix'),
+            ]);
             return redirect('/')->with('success', 'article Modifié avec succès');
         }
     }

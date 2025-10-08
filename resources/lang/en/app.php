@@ -43,4 +43,5 @@ return [
     'cancel' => 'Cancel',
     'register' => 'Register',
     'manage_wines' => 'Manage Wines',
+    'currentImage' => 'Current Image'
 ];

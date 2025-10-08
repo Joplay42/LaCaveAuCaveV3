@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action={{ route('vins.store') }} method="post">
+<form action={{ route('vins.store') }} method="post" enctype="multipart/form-data">
     @csrf
     <h2>{{ __('app.add_wine') }}</h2>
 
@@ -43,7 +43,7 @@
         <textarea name="description" id="description">{{ __('app.write_article') }}</textarea>
 
         <label for="image">{{ __('app.image') }}</label>
-        <input type="text" name="image" id="image" />
+        <input type="file" name="image" id="image" accept="image/*"/>
 
         <label for="prix">{{ __('app.price') }}</label>
         <input type="text" name="prix" id="prix" />

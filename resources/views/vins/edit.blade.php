@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('vins.update', $vin->id) }}" method="post">
+<form action="{{ route('vins.update', $vin->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <h2>{{ __('app.edit_wine') }}</h2>
@@ -42,7 +42,14 @@
         <textarea name="description" id="description">{{ old('description', $vin->description) }}</textarea>
 
         <label for="image">{{ __('app.image') }}</label>
-        <input type="text" name="image" id="image" value="{{ old('image', $vin->image) }}" />
+        <input type="file" name="image" id="image" accept="image/*"/>
+
+        @if ($vin->image) 
+            <p style="color: black">{{ __('app.currentImage') }}
+            <img style="width: 300px; height: auto;" src="{{ asset('storage/images/upload/' . $vin->image) }}"
+            alt="{{ __('app.bottle_alt', ['name' => $vin->nom_vin]) }}"
+            loading="lazy" />
+        @endif
 
         <label for="prix">{{ __('app.price') }}</label>
         <input type="text" name="prix" id="prix" value="{{ old('prix', $vin->prix) }}" />
