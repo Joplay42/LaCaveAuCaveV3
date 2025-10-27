@@ -39,29 +39,15 @@ Route::prefix('apropos')->controller(AProposController::class)->group(function (
 
 Route::get('/lang/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
 
-Auth::routes();
+// Active les routes d'auth avec vérification d'email
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/email/verify/{id}/{hash}', [EmailVerificationRequest::class, 'verify'])->name('verification.verify');
-Route::get('/email/verify/{id}/{hash}/confirm', [EmailVerificationRequest::class, 'confirm'])->name('verification.confirm');
-Route::get('/email/verify/{id}/{hash}/resend', [EmailVerificationRequest::class, 'resend'])->name('verification.resend');
-
-// Affiche la page qui demande à l'utilisateur de vérifier son e-mail
-Route::get('/email/verify', function () {
-    return view('auth.verify'); // ta vue blade (resources/views/auth/verify.blade.php)
-})->middleware(['auth'])->name('verification.notice');
-
-// Route vers laquelle l'utilisateur clique dans l'email (route signée)
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill(); // marque l'email comme vérifié
-
-    return redirect('/home'); // redirige là où tu veux après vérification
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-// Route pour renvoyer l'email de vérification (POST)
+// Les routes ci-dessous couvrent l'avis, la verification signée et le renvoi d'email
+// Fallback explicite pour le renvoi d'email si le nom 'verification.resend' n'est pas enregistré par le scaffolding
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-
     return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+})->middleware(['auth','throttle:6,1'])->name('verification.resend');
+
+// Routes de vérification fournies par Auth::routes(['verify' => true])

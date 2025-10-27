@@ -633,6 +633,25 @@ body.login-page {
 .btn-primary:hover { filter: brightness(1.05); }
 .btn-primary:active { transform: translateY(1px); }
 
+/* Auth alerts */
+.auth-alert {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+.auth-alert.success {
+    background: rgba(46, 204, 113, 0.12);
+    border-color: #2ecc71;
+    color: #dfffe9;
+}
+.auth-alert.error {
+    background: rgba(196, 7, 7, 0.12);
+    border-color: #c40707;
+    color: #ffd4d4;
+}
+
 /* --- Sélecteur de langue --- */
 .lang-switcher {
     display: inline-flex;
