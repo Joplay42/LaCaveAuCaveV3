@@ -61,6 +61,9 @@
                             </div>
                         </div>
 
+                        {{-- Role par défaut (hidden) pour que le validator côté serveur reçoive une valeur --}}
+                        <input type="hidden" name="role" value="user">
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
