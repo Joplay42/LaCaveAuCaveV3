@@ -183,71 +183,78 @@ p {
 }
 
 /* --- Cartes de vin --- */
+/* Replace #contenu flex layout with grid to avoid row gaps caused by different card heights */
 #contenu {
-    display: flex;
-    flex-wrap: wrap;
+    /* augmente la taille minimale des colonnes pour cartes plus larges */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 36px;
     width: 100%;
-    margin: 30px 0;
+    margin: 36px 0;
     box-sizing: border-box;
-    justify-content: space-between;
-    gap: 30px 0;
+    align-items: start;
 }
 
+/* Make cards stretch to full cell height and use column layout so footer/buttons can stick to bottom */
 .carteVin,
 .carteVinEfface {
-    border-radius: 12px;
-    overflow: hidden;
+    /* remove min-width to let grid manage the size */
+    min-width: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    min-width: 31%;
+    border-radius: 12px;
+    overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s, box-shadow 0.3s;
+    min-height: 420px; /* augmente la hauteur minimale */
+    padding-bottom: 12px; /* espace intérieur pour le bouton */
 }
 
-.carteVin {
-    background-color: #1f1f1f;
-    color: #eaeaea;
-}
-
-.carteVin:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.carteVin img {
+/* Ensure image keeps fixed visual height and doesn't affect other cards' layout */
+.carteVin img,
+.carteVinEfface img {
     width: 100%;
-    height: 200px;
+    height: 260px; /* augmenter la hauteur de l'image */
     object-fit: cover;
     display: block;
+    flex: 0 0 260px; /* fixed image block inside the card */
 }
 
-.carteVin .titreArticle {
-    margin: 15px 15px 5px 15px;
+/* Let content area grow; push actions/buttons to bottom */
+.carteVin .titreArticle,
+.carteVinEfface .titreArticle,
+.carteVin p,
+.carteVinEfface p {
+    /* normal flow; content will take available space */
 }
 
-.carteVin p {
-    font-size: 0.95rem;
-    margin: 5px 15px;
-    color: #cfcfcf;
+.carteVin a,
+.carteVinEfface a {
+    margin-top: auto; /* button goes to bottom of card */
+    margin-left: 18px;
+    margin-bottom: 18px;
+    align-self: start; /* keep original left alignment */
 }
 
-.carteVin a {
-    margin: 15px;
-    padding: 10px 15px;
-    background-color: #6c3483;
-    color: #fff;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
-    border-radius: 25px;
-    text-decoration: none;
-    text-align: center;
-    transition: background 0.3s, transform 0.2s;
-    align-self: start;
-}
+/* Small screens: keep single column nicely */
+@media (max-width: 520px) {
+    #contenu {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 
-.carteVin a:hover {
-    background-color: #512e5f;
-    transform: translateY(-2px) scale(1.05);
+    .carteVin,
+    .carteVinEfface {
+        min-height: auto;
+    }
+
+    .carteVin img,
+    .carteVinEfface img {
+        height: 200px;
+        flex: 0 0 200px;
+    }
 }
 
 /* --- Carte vin effacé --- */
