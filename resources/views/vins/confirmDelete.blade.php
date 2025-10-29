@@ -22,8 +22,7 @@
         <div style="margin-top:22px; border-top:1px solid rgba(255,255,255,0.04); padding-top:18px;">
             <section class="info-section vin-detail" style="padding:0; margin:0;">
                 <div class="info-image" style="max-width:180px; margin:0 auto 12px;">
-                    <img src="{{ $vin->image ?? asset('Assets/Image-Accueil.jpg') }}"
-                        alt="{{ __('app.bottle_alt', ['name' => $vin->nom_vin]) }}"
+                    <img src="{{ asset('storage/images/upload/' . $vin->image) }}" alt="{{ $vin->nom_vin }}"
                         loading="lazy" style="border-radius:10px; max-width:100%; display:block;" />
                 </div>
 
