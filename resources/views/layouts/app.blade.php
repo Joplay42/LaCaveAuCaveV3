@@ -95,7 +95,7 @@
                     <form onsubmit="return false;">
                         @csrf
                         <div class="form-group">
-                            <input type="text" class="typeahead form-control" id="vins_search" placeholder="Rechercher...">
+                            <input type="text" class="typeahead form-control" id="vins_search" placeholder={{ __('app.rechercher') }}>
                         </div>
                     </form>
                     <script type="text/javascript">

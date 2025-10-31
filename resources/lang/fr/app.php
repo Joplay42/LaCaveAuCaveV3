@@ -43,5 +43,6 @@ return [
     'cancel' => 'Annuler',
     'register' => 'S\'inscrire',
     'manage_wines' => 'Gérer les Vins',
-    'currentImage' => 'Image actuelle'
+    'currentImage' => 'Image actuelle',
+    'rechercher' => 'Rechercher ...'
 ];
