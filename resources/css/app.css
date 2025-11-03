@@ -183,71 +183,197 @@ p {
 }
 
 /* --- Cartes de vin --- */
+/* Replace #contenu flex layout with grid to avoid row gaps caused by different card heights */
 #contenu {
-    display: flex;
-    flex-wrap: wrap;
+    /* augmente la taille minimale des colonnes pour cartes plus larges */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 36px;
     width: 100%;
-    margin: 30px 0;
+    margin: 36px 0;
     box-sizing: border-box;
-    justify-content: space-between;
-    gap: 30px 0;
+    align-items: start;
 }
+
+/* --- Améliorations visuelles des cartes de vin --- */
 
 .carteVin,
 .carteVinEfface {
-    border-radius: 12px;
-    overflow: hidden;
+    box-sizing: border-box;
+    padding: 18px;
+    border-radius: 14px;
+    background: linear-gradient(
+        180deg,
+        rgba(18, 18, 18, 1) 0%,
+        rgba(24, 22, 26, 1) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1),
+        box-shadow 260ms ease, background 260ms ease;
     display: flex;
     flex-direction: column;
-    min-width: 31%;
+    gap: 12px;
+    min-height: 420px; /* conserve la hauteur minimale */
+}
+
+/* L'image garde une hauteur fixe mais avec un rendu plus net */
+.carteVin img,
+.carteVinEfface img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    transition: transform 260ms ease, filter 260ms ease;
+}
+
+/* légère animation sur hover */
+.carteVin:hover,
+.carteVinEfface:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6);
+}
+
+/* zoom image au hover sans casser le layout */
+.carteVin:hover img,
+.carteVinEfface:hover img {
+    transform: scale(1.03);
+    filter: saturate(1.05);
+}
+
+/* Titres et texte */
+.carteVin .titreArticle,
+.carteVinEfface .titreArticle {
+    margin: 8px 0 6px;
+    font-size: 1.25rem;
+    line-height: 1.1;
+    color: #ffffff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Meta lines (region / country / price) */
+.carteVin p,
+.carteVinEfface p {
+    margin: 6px 0;
+    color: #d7d7d7;
+    font-size: 0.95rem;
+}
+
+/* Prix mis en évidence (dernier paragraphe avant les boutons) */
+.carteVin p:last-of-type,
+.carteVinEfface p:last-of-type {
+    font-weight: 600;
+    color: #f3e9ff;
+}
+
+/* Boutons gardés en bas de carte, style harmonisé */
+.carteVin a,
+.carteVinEfface a {
+    margin-top: auto;
+    margin-left: 0;
+    margin-bottom: 0;
+    padding: 10px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-block;
+    align-self: flex-start;
+}
+
+/* Petite icône / badge si présent (garder alignement) */
+.badge-efface {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(196, 7, 7, 0.12);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .carteVin,
+    .carteVinEfface {
+        min-height: 380px;
+        padding: 14px;
+    }
+    .carteVin img,
+    .carteVinEfface img {
+        height: 220px;
+        flex: 0 0 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carteVin,
+    .carteVinEfface {
+        min-height: auto;
+        padding: 12px;
+    }
+    .carteVin img,
+    .carteVinEfface img {
+        height: 200px;
+        flex: 0 0 200px;
+    }
+}
+/* --- fin amélioration cartes --- */
+
+/* Make cards stretch to full cell height and use column layout so footer/buttons can stick to bottom */
+.carteVin,
+.carteVinEfface {
+    /* remove min-width to let grid manage the size */
+    min-width: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s, box-shadow 0.3s;
+    min-height: 420px; /* augmente la hauteur minimale */
+    padding-bottom: 12px; /* espace intérieur pour le bouton */
 }
 
-.carteVin {
-    background-color: #1f1f1f;
-    color: #eaeaea;
-}
-
-.carteVin:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.carteVin img {
+/* Ensure image keeps fixed visual height and doesn't affect other cards' layout */
+.carteVin img,
+.carteVinEfface img {
     width: 100%;
-    height: 200px;
+    height: 260px; /* augmenter la hauteur de l'image */
     object-fit: cover;
     display: block;
+    flex: 0 0 260px; /* fixed image block inside the card */
 }
 
-.carteVin .titreArticle {
-    margin: 15px 15px 5px 15px;
+/* Let content area grow; push actions/buttons to bottom */
+.carteVin .titreArticle,
+.carteVinEfface .titreArticle,
+.carteVin p,
+.carteVinEfface p {
+    /* normal flow; content will take available space */
 }
 
-.carteVin p {
-    font-size: 0.95rem;
-    margin: 5px 15px;
-    color: #cfcfcf;
+.carteVin a,
+.carteVinEfface a {
+    margin-top: auto; /* button goes to bottom of card */
+    margin-left: 18px;
+    margin-bottom: 18px;
+    align-self: start; /* keep original left alignment */
 }
 
-.carteVin a {
-    margin: 15px;
-    padding: 10px 15px;
-    background-color: #6c3483;
-    color: #fff;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
-    border-radius: 25px;
-    text-decoration: none;
-    text-align: center;
-    transition: background 0.3s, transform 0.2s;
-    align-self: start;
-}
+/* Small screens: keep single column nicely */
+@media (max-width: 520px) {
+    #contenu {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 
-.carteVin a:hover {
-    background-color: #512e5f;
-    transform: translateY(-2px) scale(1.05);
+    .carteVin,
+    .carteVinEfface {
+        min-height: auto;
+    }
+
+    .carteVin img,
+    .carteVinEfface img {
+        height: 200px;
+        flex: 0 0 200px;
+    }
 }
 
 /* --- Carte vin effacé --- */
@@ -362,38 +488,115 @@ p {
     color: #ffffff;
 }
 
-/* --- Boutons --- */
+/* --- Boutons : amélioration visuelle (conserver les couleurs) --- */
+
+.btn,
+.btn-connexion,
+.btn-retour,
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-weight: 700;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 160ms ease, box-shadow 220ms ease, filter 160ms ease;
+    will-change: transform, box-shadow;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Purple site primary (used by .btn-connexion / .btn-retour) — conserve la couleur */
 .btn-connexion,
 .btn-retour {
-    display: inline-block;
-    padding: 10px 24px;
-    background-color: #6c3483;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(108, 52, 131, 0.15);
-    transition: background 0.2s, transform 0.2s;
-    cursor: pointer;
-    margin-left: 20px;
-    height: fit-content;
+    background: linear-gradient(90deg, #6c3483 0%, #8a4db0 100%);
+    box-shadow: 0 8px 22px rgba(108, 52, 131, 0.18),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
+/* Hover / Focus for purple buttons */
 .btn-connexion:hover,
-.btn-connexion:focus,
 .btn-retour:hover,
+.btn-connexion:focus,
 .btn-retour:focus {
-    background-color: #512e5f;
-    transform: translateY(-2px) scale(1.05);
-    color: #fff;
-    text-decoration: none;
+    transform: translateY(-3px);
+    filter: brightness(1.06);
+    box-shadow: 0 14px 34px rgba(108, 52, 131, 0.22),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.18);
+    outline: none;
 }
 
+/* Active (press) state */
+.btn-connexion:active,
+.btn-retour:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 14px rgba(108, 52, 131, 0.14),
+        inset 0 2px 6px rgba(0, 0, 0, 0.12);
+    filter: brightness(0.98);
+}
+
+/* Primary utility button (keeps existing gradient but refined) */
+.btn-primary {
+    background: linear-gradient(90deg, #6c3483 0%, #8a4db0 100%);
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-shadow: 0 10px 30px rgba(108, 52, 131, 0.18);
+}
+
+/* Hover / active for .btn-primary */
+.btn-primary:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.04);
+    box-shadow: 0 16px 40px rgba(108, 52, 131, 0.22);
+}
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 6px 18px rgba(108, 52, 131, 0.12);
+}
+
+/* Delete button inside carteVinEfface (conserver le rouge) */
+.carteVinEfface a {
+    background: linear-gradient(90deg, #c40707 0%, #9a0505 100%);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 20px rgba(196, 7, 7, 0.16),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.18);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 24px;
+    transition: transform 140ms ease, box-shadow 220ms ease, filter 120ms ease;
+}
+
+/* Hover / active for delete link */
+.carteVinEfface a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(196, 7, 7, 0.22);
+    filter: brightness(0.98);
+}
+.carteVinEfface a:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(196, 7, 7, 0.12);
+}
+
+/* Small tweaks to ensure buttons keep original spacing and sizing */
+.btn-connexion,
 .btn-retour {
-    font-size: 1.1em;
-    border-radius: 20px;
-    margin: 10px 0 0 10px;
+    height: auto;
+    line-height: 1;
+}
+
+/* Accessibility focus ring fallback */
+.btn:focus,
+.btn-connexion:focus,
+.btn-primary:focus,
+.carteVinEfface a:focus {
+    box-shadow: 0 0 0 4px rgba(138, 77, 176, 0.16);
+    outline: none;
 }
 
 /* --- Formulaires --- */
@@ -523,6 +726,159 @@ body.login-page {
     color: #a9a9a9;
 }
 
+/* --- Auth (Login/Register) modern card --- */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem 3rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: #1f1b24; /* dark mauve base */
+    border: 1px solid #3c3147;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    padding: 28px;
+    color: #f1eaf7;
+}
+
+.auth-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 10px;
+}
+
+/* Make the auth form override the generic `form { ... }` block above */
+.auth-page .auth-form {
+    max-width: unset;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.auth-form .form-group {
+    margin-top: 16px;
+}
+.auth-form label {
+    display: block;
+    color: #d7cfe1;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"] {
+    width: 100%;
+    padding: 12px 1px;
+    border-radius: 12px;
+    border: 1px solid #4a3a57;
+    background: #2a2432;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form input::placeholder {
+    color: #b9aecd;
+}
+.auth-form input:focus {
+    border-color: #8a4db0;
+    box-shadow: 0 0 0 3px rgba(138, 77, 176, 0.25);
+}
+
+.auth-form .is-invalid {
+    border-color: #c40707;
+}
+.auth-form .input-error {
+    color: #ff9a9a;
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+}
+
+.form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.remember-me {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #d7cfe1;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #6c3483; /* modern checkbox tint */
+}
+
+.link-muted {
+    color: #cdb8e6;
+    text-decoration: none;
+}
+.link-muted:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.form-actions {
+    margin-top: 18px;
+}
+.w-100 {
+    width: 100%;
+}
+
+.btn {
+    cursor: pointer;
+    border: none;
+}
+.btn-primary {
+    display: inline-block;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, #6c3483, #8a4db0);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(108, 52, 131, 0.35);
+    transition: transform 0.05s ease-in-out, filter 0.2s ease;
+}
+.btn-primary:hover {
+    filter: brightness(1.05);
+}
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+/* Auth alerts */
+.auth-alert {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+.auth-alert.success {
+    background: rgba(46, 204, 113, 0.12);
+    border-color: #2ecc71;
+    color: #dfffe9;
+}
+.auth-alert.error {
+    background: rgba(196, 7, 7, 0.12);
+    border-color: #c40707;
+    color: #ffd4d4;
+}
+
 /* --- Sélecteur de langue --- */
 .lang-switcher {
     display: inline-flex;
@@ -596,8 +952,10 @@ header .car-body .form-group {
     color: #ffffff;
     font-size: 1rem;
     outline: none;
-    box-shadow: 0 6px 20px rgba(108, 52, 131, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, transform 0.05s ease-in-out;
+    box-shadow: 0 6px 20px rgba(108, 52, 131, 0.35),
+        0 2px 8px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s,
+        transform 0.05s ease-in-out;
 
     /* Icône loupe en SVG inline (teintée violet) */
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
@@ -612,12 +970,14 @@ header .car-body .form-group {
 
 #vins_search:hover {
     border-color: #8a4db0;
-    box-shadow: 0 8px 26px rgba(108, 52, 131, 0.45), 0 3px 10px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 26px rgba(108, 52, 131, 0.45),
+        0 3px 10px rgba(0, 0, 0, 0.35);
 }
 
 #vins_search:focus {
     border-color: #6c3483;
-    box-shadow: 0 0 0 3px rgba(108, 52, 131, 0.35), 0 12px 28px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 0 3px rgba(108, 52, 131, 0.35),
+        0 12px 28px rgba(0, 0, 0, 0.45);
     background: #6c3483;
 }
 
@@ -672,7 +1032,7 @@ header .car-body .form-group {
     border-radius: 8px;
     overflow: hidden;
     flex: 0 0 auto;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     background: #2a2a2a;
 }
 
@@ -700,6 +1060,85 @@ header .car-body .form-group {
     font-size: 0.85rem;
     color: #cfcfcf;
     margin-top: 2px;
+}
+
+/* --- Selects & Textareas (match auth / form styles) --- */
+
+form select,
+form textarea,
+.auth-form select,
+.auth-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #4a3a57;
+    background: #2a2432;
+    color: #fff;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* textarea specifics */
+form textarea,
+.auth-form textarea {
+    min-height: 120px;
+    resize: vertical;
+    padding: 12px;
+    line-height: 1.4;
+}
+
+/* select specifics: custom arrow and spacing */
+form select,
+.auth-form select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23cdb8e6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+    padding-right: 40px; /* room for arrow */
+}
+
+/* focus state */
+form select:focus,
+form textarea:focus,
+.auth-form select:focus,
+.auth-form textarea:focus {
+    border-color: #8a4db0;
+    box-shadow: 0 0 0 3px rgba(138, 77, 176, 0.15);
+}
+
+/* invalid state */
+.auth-form .is-invalid,
+form .is-invalid {
+    border-color: #c40707 !important;
+    box-shadow: 0 0 0 3px rgba(196, 7, 7, 0.08);
+}
+
+/* input error message spacing for selects/textareas */
+.input-error {
+    color: #ff9a9a;
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+}
+
+/* smaller screens adjustments */
+@media (max-width: 480px) {
+    form select,
+    form textarea,
+    .auth-form select,
+    .auth-form textarea {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+
+    form select {
+        background-position: right 10px center;
+        padding-right: 36px;
+    }
 }
 
 /* Responsive */
