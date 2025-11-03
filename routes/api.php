@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\VinController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RegisterController;
@@ -18,18 +19,14 @@ use App\Http\Controllers\Api\RegisterController;
 Route::post('register', [RegisterController::class, 'register']);
 
 Route::post('login', [RegisterController::class, 'login']);
-// Route::get('/articles', [ArticleController::class, 'index']);
-// Route::get('/articles/{id}', [ArticleController::class, 'show']);
-     
-// //Route::resource('articles', ArticleController::class);
-// Route::middleware('auth:sanctum')->group( function () {
-//     //Route::resource('articles', ArticleController::class);
-//     // Route::get('articles', [ArticleController::class, 'index']);
-//     Route::post('articles/', [ArticleController::class, 'store']);
-//     Route::get('articles/edit/{id}', [ArticleController::class, 'edit']);
-//     Route::put('articles/update/{id}', [ArticleController::class, 'update']);
-//     Route::delete('articles/{id}', [ArticleController::class, 'destroy']); 
-//});
+Route::get('/vins', [VinController::class, 'index']);
+Route::get('/vins/{id}', [VinController::class, 'show']);
+
+Route::middleware('auth:sanctum')->group( function () {
+    Route::post('vins', [VinController::class, 'store']);
+    Route::put('vins/update/{id}', [VinController::class, 'update']);
+    Route::delete('vins/{id}', [VinController::class, 'destroy']); 
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
