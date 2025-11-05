@@ -11,13 +11,23 @@ class VinController extends BaseController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Affiche tout les vins
-        $vins = vin::all();
-        return response()->json(
-            $vins, 200
-        );
+        // Liste des vins avec recherche optionnelle
+        $search = $request->input('search', $request->input('q'));
+
+        $query = Vin::query();
+        if (!empty($search)) {
+            $term = '%' . $search . '%';
+            $query->where(function ($q) use ($term) {
+                $q->where('nom_vin', 'LIKE', $term)
+                  ->orWhere('description', 'LIKE', $term)
+                  ->orWhere('cepage', 'LIKE', $term);
+            });
+        }
+
+        $vins = $query->orderBy('nom_vin', 'asc')->get();
+        return response()->json($vins, 200);
     }
 
     /**

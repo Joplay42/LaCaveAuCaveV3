@@ -18,7 +18,9 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('{any}', function(){
+    return view('monopage');
+})->where('any', '.*');
 Route::get('/', [VinController::class, 'index'])->name('vins.index');
 
 Route::prefix('vins')->controller(VinController::class)->group(function () {

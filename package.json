@@ -5,6 +5,11 @@
         "build": "vite build",
         "dev-all": "concurrently \"php artisan serve\" \"npm run dev\""
     },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.14.1"
+    },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
         "axios": "^1.1.2",
