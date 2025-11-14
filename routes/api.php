@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\VinController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VinController as WebVinController;
 use App\Http\Controllers\Api\RegisterController;
 
 /*
@@ -19,13 +19,13 @@ use App\Http\Controllers\Api\RegisterController;
 Route::post('register', [RegisterController::class, 'register']);
 
 Route::post('login', [RegisterController::class, 'login']);
-Route::get('/vins', [VinController::class, 'index']);
-Route::get('/vins/{id}', [VinController::class, 'show']);
+Route::get('/vins', [WebVinController::class, 'indexApi']);
+Route::get('/vins/{id}', [WebVinController::class, 'showApi']);
 
-Route::middleware('auth:sanctum')->group( function () {
-    Route::post('vins', [VinController::class, 'store']);
-    Route::put('vins/update/{id}', [VinController::class, 'update']);
-    Route::delete('vins/{id}', [VinController::class, 'destroy']); 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('vins', [WebVinController::class, 'store']);
+    Route::put('vins/update/{id}', [WebVinController::class, 'update']);
+    Route::delete('vins/{id}', [WebVinController::class, 'destroy']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

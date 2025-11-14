@@ -195,4 +195,38 @@ class VinController extends Controller
 
         return response()->json($response);
     }
+
+    public function indexApi(Request $request)
+    {
+        $search = trim((string) $request->query('search', ''));
+
+        $query = Vin::with(['region', 'pays']);
+
+        if ($search !== '') {
+            $like = '%' . $search . '%';
+            $query->where(function ($q) use ($like) {
+                $q->where('nom_vin', 'LIKE', $like)
+                    ->orWhere('nom', 'LIKE', $like)
+                    ->orWhere('description', 'LIKE', $like)
+                    ->orWhereHas('pays', function ($p) use ($like) {
+                        $p->where('nom_pays', 'LIKE', $like);
+                    })
+                    ->orWhereHas('region', function ($r) use ($like) {
+                        $r->where('nom_region', 'LIKE', $like);
+                    });
+            });
+        }
+
+        $vins = $query->get();
+        return response()->json($vins);
+    }
+
+    public function showApi(string $id)
+    {
+        $vin = Vin::with(['millesime', 'pays', 'region'])->find($id);
+        if (!$vin) {
+            return response()->json(['message' => 'Vin non trouvé'], 404);
+        }
+        return response()->json($vin);
+    }
 }

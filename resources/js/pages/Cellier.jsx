@@ -1,13 +1,35 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function Cellier() {
     const { id } = useParams();
 
     return (
         <div className="container py-4">
-            <h1>Cellier #{id}</h1>
-            <p>Détails du cellier (id = {id}) — contenu d'exemple.</p>
+            <a href="/celliers" className="btn-retour">
+                ← Retour
+            </a>
+
+            <section className="info-section" style={{ paddingTop: "1rem" }}>
+                <div className="info-text">
+                    <h2>Cellier #{id}</h2>
+                    <p>Informations et actions pour votre cellier.</p>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "0.5rem",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <a href="#" className="btn-connexion">
+                            Ajouter un vin
+                        </a>
+                        <a href="#" className="btn-connexion">
+                            Renommer
+                        </a>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }
