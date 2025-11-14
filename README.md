@@ -64,3 +64,12 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Search bar (SPA)
+
+The header search bar supports two behaviors:
+
+- Typeahead suggestions powered by `GET /api/autocomplete/vins?search=...`.
+- Press Enter to open the list page `/vins?q=...` (client filters if backend query is omitted).
+
+Endpoints implemented in `routes/api.php` and `App\Http\Controllers\VinController` (`autocomplete`, `indexApi`).

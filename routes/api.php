@@ -22,6 +22,8 @@ Route::post('login', [RegisterController::class, 'login']);
 Route::get('/vins', [WebVinController::class, 'indexApi']);
 Route::get('/vins/{id}', [WebVinController::class, 'showApi']);
 
+Route::get('/autocomplete/vins', [WebVinController::class, 'autocomplete']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('vins', [WebVinController::class, 'store']);
     Route::put('vins/update/{id}', [WebVinController::class, 'update']);
