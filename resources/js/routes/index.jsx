@@ -1,18 +1,20 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Layout from '../components/Layout';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import Celliers from '../pages/Celliers';
-import Cellier from '../pages/Cellier';
-import Vins from '../pages/Vins';
-import Vin from '../pages/Vin';
-import Pays from '../pages/Pays';
-import Regions from '../pages/Regions';
-import Millesimes from '../pages/Millesimes';
-import Profile from '../pages/Profile';
-import NotFound from '../pages/NotFound';
-import VinsManager from '../pages/VinsManager';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "../components/Layout";
+import Home from "../pages/Home";
+import About from "../pages/About";
+import Celliers from "../pages/Celliers";
+import Cellier from "../pages/Cellier";
+import Vins from "../pages/Vins";
+import Vin from "../pages/Vin";
+import Pays from "../pages/Pays";
+import Regions from "../pages/Regions";
+import Millesimes from "../pages/Millesimes";
+import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound";
+import VinsManager from "../pages/VinsManager";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 export default function AppRoutes() {
     return (
@@ -29,6 +31,8 @@ export default function AppRoutes() {
                 <Route path="/regions" element={<Regions />} />
                 <Route path="/millesimes" element={<Millesimes />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Layout>

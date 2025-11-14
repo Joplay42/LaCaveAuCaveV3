@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { getStatus, logout } from "../lib/auth";
 
 export default function Nav() {
+    const [auth, setAuth] = useState(getStatus());
+
+    function handleLogout(e) {
+        e.preventDefault();
+        logout();
+        setAuth(getStatus());
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
@@ -35,13 +44,63 @@ export default function Nav() {
                     </ul>
                     <div className="ms-auto d-flex align-items-center gap-3">
                         <SearchBar />
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/profile">
-                                    Profil
-                                </Link>
-                            </li>
-                        </ul>
+                        <div
+                            style={{
+                                display: "flex",
+                                gap: "0.5rem",
+                                alignItems: "center",
+                                flexWrap: "nowrap",
+                                whiteSpace: "nowrap",
+                            }}
+                        >
+                            {!auth.authenticated && (
+                                <>
+                                    <Link
+                                        to="/login"
+                                        className="btn-connexion"
+                                        style={{
+                                            textDecoration: "none",
+                                            display: "inline-block",
+                                        }}
+                                    >
+                                        Se connecter
+                                    </Link>
+                                    <Link
+                                        to="/register"
+                                        className="btn-connexion"
+                                        style={{
+                                            textDecoration: "none",
+                                            display: "inline-block",
+                                        }}
+                                    >
+                                        Créer un compte
+                                    </Link>
+                                </>
+                            )}
+                            {auth.authenticated && (
+                                <>
+                                    <span
+                                        style={{
+                                            fontWeight: 600,
+                                            color: "#fff",
+                                        }}
+                                    >
+                                        Bonjour {auth.name}
+                                    </span>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="btn-connexion"
+                                        style={{
+                                            background: "#c40707",
+                                            border: "none",
+                                            display: "inline-block",
+                                        }}
+                                    >
+                                        Déconnexion
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
