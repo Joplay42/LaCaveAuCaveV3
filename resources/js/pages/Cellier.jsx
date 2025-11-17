@@ -1,14 +1,14 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function Cellier() {
     const { id } = useParams();
 
     return (
         <div className="container py-4">
-            <a href="/celliers" className="btn-retour">
+            <Link to="/celliers" className="btn-retour">
                 ← Retour
-            </a>
+            </Link>
 
             <section className="info-section" style={{ paddingTop: "1rem" }}>
                 <div className="info-text">

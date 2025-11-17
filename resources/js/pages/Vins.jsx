@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
 import VinCard from "../components/VinCard";
+import { useAuth } from "../lib/AuthContext";
 
 export default function Vins() {
     const [vins, setVins] = useState([]);
@@ -9,6 +10,11 @@ export default function Vins() {
     const [error, setError] = useState(null);
     const [searchParams] = useSearchParams();
     const q = searchParams.get("q") || "";
+    const { isAuthenticated, user } = useAuth();
+
+    const handleDelete = (vinId) => {
+        setVins(vins.filter((v) => v.id !== vinId));
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -36,7 +42,21 @@ export default function Vins() {
 
     return (
         <div className="container py-4">
-            <h1>Vins</h1>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "1rem",
+                }}
+            >
+                <h1>Vins</h1>
+                {isAuthenticated && user?.role === "admin" && (
+                    <Link to="/vins/create" className="btn-connexion">
+                        + Ajouter un vin
+                    </Link>
+                )}
+            </div>
             {q && (
                 <p className="text-muted">
                     Recherche: <strong>{q}</strong>
@@ -46,7 +66,7 @@ export default function Vins() {
             {error && <p className="text-danger">{error}</p>}
             <div id="contenu">
                 {items.map((v) => (
-                    <VinCard key={v.id} vin={v} />
+                    <VinCard key={v.id} vin={v} onDelete={handleDelete} />
                 ))}
             </div>
         </div>

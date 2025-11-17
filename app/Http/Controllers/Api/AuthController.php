@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends BaseController
+class AuthController extends BaseController
 {
     /**
      * Register api
@@ -40,6 +40,7 @@ class RegisterController extends BaseController
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'role' => $user->role,
             ],
             'message' => 'User registered successfully.'
         ], 201);
@@ -63,6 +64,7 @@ class RegisterController extends BaseController
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
+                    'role' => $user->role,
                 ],
                 'message' => 'User logged in successfully.'
             ]);

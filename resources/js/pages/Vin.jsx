@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Vin() {
@@ -47,9 +47,9 @@ export default function Vin() {
 
     return (
         <div className="container py-4">
-            <a href="/" className="btn-retour">
+            <Link to="/" className="btn-retour">
                 ← Retour
-            </a>
+            </Link>
 
             <section
                 className="info-section vin-detail"

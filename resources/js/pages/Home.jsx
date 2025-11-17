@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../lib/AuthContext";
 
 export default function Home() {
     const [vins, setVins] = useState([]);
     const { isAuthenticated, user, logout } = useAuth();
+
+    // Debug: afficher les infos de l'utilisateur
+    console.log(
+        "Home - isAuthenticated:",
+        isAuthenticated,
+        "user:",
+        user,
+        "role:",
+        user?.role
+    );
 
     useEffect(() => {
         axios
@@ -35,7 +46,21 @@ export default function Home() {
                 </div>
             </section>
 
-            <h1>Liste des vins</h1>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "1rem",
+                }}
+            >
+                <h1>Liste des vins</h1>
+                {isAuthenticated && user?.role === "admin" && (
+                    <Link to="/vins/create" className="btn-connexion">
+                        + Ajouter un vin
+                    </Link>
+                )}
+            </div>
 
             <div id="contenu">
                 {vins.map((vin) => {
@@ -81,12 +106,41 @@ export default function Home() {
                                     flexWrap: "wrap",
                                 }}
                             >
-                                <a
-                                    href={`/vins/${vin.id}`}
+                                <Link
+                                    to={`/vins/${vin.id}`}
                                     className="btn-connexion"
                                 >
                                     Voir
-                                </a>
+                                </Link>
+                                {isAuthenticated && user?.role === "admin" && (
+                                    <>
+                                        <Link
+                                            to={`/vins/${vin.id}/edit`}
+                                            className="btn-connexion"
+                                            style={{
+                                                background:
+                                                    "linear-gradient(90deg, #ffa500 0%, #ff8c00 100%)",
+                                                boxShadow:
+                                                    "0 8px 22px rgba(255, 165, 0, 0.18), inset 0 -2px 6px rgba(0, 0, 0, 0.15)",
+                                            }}
+                                        >
+                                            Modifier
+                                        </Link>
+                                        <Link
+                                            to={`/vins/${vin.id}/delete`}
+                                            className="btn-connexion"
+                                            style={{
+                                                background:
+                                                    "linear-gradient(90deg, #dc3545 0%, #c82333 100%)",
+                                                boxShadow:
+                                                    "0 8px 22px rgba(220, 53, 69, 0.18), inset 0 -2px 6px rgba(0, 0, 0, 0.15)",
+                                                border: "none",
+                                            }}
+                                        >
+                                            Supprimer
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
                     );

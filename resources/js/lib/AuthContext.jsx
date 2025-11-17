@@ -25,12 +25,25 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         try {
+            // Try new format first
             const stored = localStorage.getItem("auth");
             if (stored) {
                 const { user: storedUser, token: storedToken } =
                     JSON.parse(stored);
                 setUser(storedUser ?? null);
                 setToken(storedToken ?? null);
+                return;
+            }
+            // Fallback to legacy format
+            const legacyUserRaw = localStorage.getItem("auth_user");
+            const legacyToken = localStorage.getItem("auth_token");
+            if (legacyUserRaw && legacyToken) {
+                let legacyUser = null;
+                try {
+                    legacyUser = JSON.parse(legacyUserRaw);
+                } catch {}
+                setUser(legacyUser ?? null);
+                setToken(legacyToken);
             }
         } catch (e) {
             console.warn("Failed to parse auth from localStorage", e);
