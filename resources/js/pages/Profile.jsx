@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
+import { useAuth } from "../lib/AuthContext";
 
 export default function Profile() {
-    const data = window.Laravel || {};
-    const user = data.user || null;
-
+    const { user, isAuthenticated } = useAuth();
     return (
         <div className="container py-4">
             <h1>Profil</h1>
-            {user ? (
+            {isAuthenticated && user ? (
                 <div>
                     <p>Nom: {user.name}</p>
                     <p>Email: {user.email}</p>

@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { getStatus, logout } from "../lib/auth";
+import { useAuth } from "../lib/AuthContext";
 
 export default function Home() {
     const [vins, setVins] = useState([]);
-    const [auth, setAuth] = useState(getStatus());
-
-    function handleLogout() {
-        logout();
-        setAuth(getStatus());
-    }
+    const { isAuthenticated, user, logout } = useAuth();
 
     useEffect(() => {
         axios
@@ -31,7 +26,6 @@ export default function Home() {
                     <a href="#" className="btn-connexion">
                         Voir la collection
                     </a>
-                   
                 </div>
                 <div className="info-image">
                     <img

@@ -14,7 +14,7 @@ class RegisterController extends BaseController
      * Register api
      *
      * @return \Illuminate\Http\Response
-    */
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -23,38 +23,54 @@ class RegisterController extends BaseController
             'password' => 'required',
             'c_password' => 'required|same:password',
         ]);
- 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
         }
- 
+
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']); 
+        $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-        $success['name'] =  $user->name;
+        $token = $user->createToken('MyApp')->plainTextToken;
 
-        // $success['id'] =  $user->id;  la réponse lors de l'enregistrement peut aussi être l'id et le token
-        return response()->json([$success, "message"=> 'User register successfully.']);
-     }
- 
-    
- 
-     /**
-      * Login api
-      *
-      * @return \Illuminate\Http\Response
-      */
-     public function login(Request $request)
-     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-            $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
-            $success['name'] =  $user->name;
+        return response()->json([
+            'success' => true,
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+            'message' => 'User registered successfully.'
+        ], 201);
+    }
 
-            return response()->json([$success, "message"=> 'User login successfully.']);
-         } else { 
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
-        } 
+    /**
+     * Login api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+            $token = $user->createToken('MyApp')->plainTextToken;
+
+            return response()->json([
+                'success' => true,
+                'token' => $token,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                ],
+                'message' => 'User logged in successfully.'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
     }
 }

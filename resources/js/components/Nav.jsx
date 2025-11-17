@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { getStatus, logout } from "../lib/auth";
+import { useAuth } from "../lib/AuthContext";
 
 export default function Nav() {
-    const [auth, setAuth] = useState(getStatus());
-
+    const { isAuthenticated, user, logout } = useAuth();
     function handleLogout(e) {
         e.preventDefault();
         logout();
-        setAuth(getStatus());
     }
 
     return (
@@ -53,7 +51,7 @@ export default function Nav() {
                                 whiteSpace: "nowrap",
                             }}
                         >
-                            {!auth.authenticated && (
+                            {!isAuthenticated && (
                                 <>
                                     <Link
                                         to="/login"
@@ -77,7 +75,7 @@ export default function Nav() {
                                     </Link>
                                 </>
                             )}
-                            {auth.authenticated && (
+                            {isAuthenticated && (
                                 <>
                                     <span
                                         style={{
@@ -85,7 +83,7 @@ export default function Nav() {
                                             color: "#fff",
                                         }}
                                     >
-                                        Bonjour {auth.name}
+                                        Bonjour {user?.name}
                                     </span>
                                     <button
                                         onClick={handleLogout}

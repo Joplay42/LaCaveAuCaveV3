@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { register, getStatus } from "../lib/auth";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../lib/AuthContext";
 
 export default function Register() {
     const [form, setForm] = useState({
@@ -10,7 +12,8 @@ export default function Register() {
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+    const { isAuthenticated, user, login } = useAuth();
+    const navigate = useNavigate();
 
     function onChange(e) {
         const { name, value } = e.target;
@@ -21,28 +24,32 @@ export default function Register() {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        setSuccess(null);
-        const res = await register(form);
-        setLoading(false);
-        if (!res.ok) {
-            setError(res.error || "Erreur");
-        } else {
-            setSuccess("Inscription réussie");
+
+        try {
+            const response = await axios.post("/api/register", form);
+            if (response.data.success) {
+                login({
+                    user: response.data.user,
+                    token: response.data.token,
+                });
+                navigate("/");
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || "Erreur d'inscription");
+        } finally {
+            setLoading(false);
         }
     }
-
-    const status = getStatus();
 
     return (
         <div className="container py-4">
             <h1>Inscription</h1>
-            {status.authenticated && (
+            {isAuthenticated && (
                 <p className="text-success">
-                    Connecté en tant que <strong>{status.name}</strong>
+                    Connecté en tant que <strong>{user?.name}</strong>
                 </p>
             )}
             {error && <p className="text-danger">{error}</p>}
-            {success && <p className="text-success">{success}</p>}
             <form onSubmit={onSubmit} style={{ maxWidth: 420 }}>
                 <div className="mb-3">
                     <label className="form-label">Nom</label>

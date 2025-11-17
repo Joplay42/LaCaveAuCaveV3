@@ -7,11 +7,14 @@ import "bootstrap";
  */
 
 import axios from "axios";
-// Inject token if present (simple global setup)
+// Inject token if present (from new auth storage format)
 try {
-    const token = localStorage.getItem("auth_token");
-    if (token) {
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    const authData = localStorage.getItem("auth");
+    if (authData) {
+        const { token } = JSON.parse(authData);
+        if (token) {
+            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        }
     }
 } catch (_) {}
 window.axios = axios;
