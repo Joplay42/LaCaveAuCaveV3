@@ -206,13 +206,16 @@ class VinController extends Controller
             $like = '%' . $search . '%';
             $query->where(function ($q) use ($like) {
                 $q->where('nom_vin', 'LIKE', $like)
-                    ->orWhere('nom', 'LIKE', $like)
                     ->orWhere('description', 'LIKE', $like)
+                    ->orWhere('cepage', 'LIKE', $like)
                     ->orWhereHas('pays', function ($p) use ($like) {
                         $p->where('nom_pays', 'LIKE', $like);
                     })
                     ->orWhereHas('region', function ($r) use ($like) {
                         $r->where('nom_region', 'LIKE', $like);
+                    })
+                    ->orWhereHas('millesime', function ($m) use ($like) {
+                        $m->where('annee', 'LIKE', $like);
                     });
             });
         }
