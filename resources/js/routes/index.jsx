@@ -6,8 +6,6 @@ import About from "../pages/About";
 import Celliers from "../pages/Celliers";
 import Cellier from "../pages/Cellier";
 import Vins from "../pages/Vins";
-import Vin from "../pages/Vin";
-import AjoutVin from "../pages/AjoutVin";
 import EditVin from "../pages/EditVin";
 import ConfirmDeleteVin from "../pages/ConfirmDeleteVin";
 import Pays from "../pages/Pays";
@@ -16,8 +14,6 @@ import Millesimes from "../pages/Millesimes";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import VinsManager from "../pages/VinsManager";
-import Login from "../pages/Login";
-import Register from "../pages/Register";
 
 export default function AppRoutes() {
     return (
@@ -28,8 +24,6 @@ export default function AppRoutes() {
                 <Route path="/celliers" element={<Celliers />} />
                 <Route path="/celliers/:id" element={<Cellier />} />
                 <Route path="/vins" element={<Vins />} />
-                <Route path="/vins/create" element={<AjoutVin />} />
-                <Route path="/vins/:id" element={<Vin />} />
                 <Route path="/vins/:id/edit" element={<EditVin />} />
                 <Route path="/vins/:id/delete" element={<ConfirmDeleteVin />} />
                 <Route path="/manage/vins" element={<VinsManager />} />
@@ -37,8 +31,7 @@ export default function AppRoutes() {
                 <Route path="/regions" element={<Regions />} />
                 <Route path="/millesimes" element={<Millesimes />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Layout>

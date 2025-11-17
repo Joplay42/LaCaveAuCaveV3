@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useAuth } from "../lib/AuthContext";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 export default function Nav() {
     const { isAuthenticated, user, logout } = useAuth();
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showRegisterModal, setShowRegisterModal] = useState(false);
+
     function handleLogout(e) {
         e.preventDefault();
         logout();
@@ -53,26 +58,28 @@ export default function Nav() {
                         >
                             {!isAuthenticated && (
                                 <>
-                                    <Link
-                                        to="/login"
+                                    <button
+                                        onClick={() => setShowLoginModal(true)}
                                         className="btn-connexion"
                                         style={{
-                                            textDecoration: "none",
+                                            border: "none",
                                             display: "inline-block",
                                         }}
                                     >
                                         Se connecter
-                                    </Link>
-                                    <Link
-                                        to="/register"
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            setShowRegisterModal(true)
+                                        }
                                         className="btn-connexion"
                                         style={{
-                                            textDecoration: "none",
+                                            border: "none",
                                             display: "inline-block",
                                         }}
                                     >
                                         Créer un compte
-                                    </Link>
+                                    </button>
                                 </>
                             )}
                             {isAuthenticated && (
@@ -102,6 +109,23 @@ export default function Nav() {
                     </div>
                 </div>
             </div>
+
+            {/* Modals */}
+            <LoginModal
+                isOpen={showLoginModal}
+                onClose={() => setShowLoginModal(false)}
+                onSuccess={() => {
+                    // Optionnel: actions après connexion réussie
+                }}
+            />
+
+            <RegisterModal
+                isOpen={showRegisterModal}
+                onClose={() => setShowRegisterModal(false)}
+                onSuccess={() => {
+                    // Optionnel: actions après inscription réussie
+                }}
+            />
         </nav>
     );
 }

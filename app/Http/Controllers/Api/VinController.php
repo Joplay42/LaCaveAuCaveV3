@@ -17,7 +17,7 @@ class VinController extends BaseController
         // Liste des vins avec recherche optionnelle
         $search = $request->input('search', $request->input('q'));
 
-        $query = Vin::query();
+        $query = Vin::with(['pays', 'region', 'millesime']);
         if (!empty($search)) {
             $term = '%' . $search . '%';
             $query->where(function ($q) use ($term) {
