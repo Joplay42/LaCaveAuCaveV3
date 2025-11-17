@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../lib/AuthContext";
+import ReCAPTCHA from "react-google-recaptcha";
 import Modal from "./Modal";
 
 export default function LoginModal({ isOpen, onClose, onSuccess }) {
@@ -8,6 +9,8 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const { isAuthenticated, user, login, logout } = useAuth();
+    const [captchaToken, setCaptchaToken] = useState("");
+    const recaptchaRef = useRef();
 
     // Réinitialiser le formulaire quand la modal s'ouvre
     useEffect(() => {
@@ -27,8 +30,17 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
         setLoading(true);
         setError(null);
 
+        if (!captchaToken) {
+            setError("Veuillez valider le captcha.");
+            setLoading(false);
+            return;
+        }
+
         try {
-            const response = await axios.post("/api/login", form);
+            const response = await axios.post("/api/login", {
+                ...form,
+                captcha: captchaToken,
+            });
             if (response.data.success) {
                 login({
                     user: response.data.user,
@@ -100,6 +112,20 @@ export default function LoginModal({ isOpen, onClose, onSuccess }) {
                                 value={form.password}
                                 onChange={onChange}
                                 required
+                            />
+                        </div>
+                        {/* Ajout du captcha */}
+                        <div
+                            className="form-group"
+                            style={{ margin: "1rem 0" }}
+                        >
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={
+                                    import.meta.env.VITE_RECAPTCHA_SITE_KEY ||
+                                    "6LcboA8sAAAAAIv3Me2aWZ0pkFKLpddoVsEkPyHU"
+                                }
+                                onChange={setCaptchaToken}
                             />
                         </div>
 

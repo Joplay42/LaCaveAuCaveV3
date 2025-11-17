@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+// Ajout reCAPTCHA
+import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import { useAuth } from "../lib/AuthContext";
 import Modal from "./Modal";
@@ -10,6 +12,8 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }) {
         password: "",
         c_password: "",
     });
+    const [captchaToken, setCaptchaToken] = useState("");
+    const recaptchaRef = useRef();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const { isAuthenticated, user, login } = useAuth();
@@ -37,8 +41,17 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }) {
         setLoading(true);
         setError(null);
 
+        if (!captchaToken) {
+            setError("Veuillez valider le captcha.");
+            setLoading(false);
+            return;
+        }
+
         try {
-            const response = await axios.post("/api/register", form);
+            const response = await axios.post("/api/register", {
+                ...form,
+                captcha: captchaToken,
+            });
             if (response.data.success) {
                 login({
                     user: response.data.user,
@@ -130,6 +143,20 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }) {
                                 value={form.c_password}
                                 onChange={onChange}
                                 required
+                            />
+                        </div>
+                        {/* Ajout du captcha */}
+                        <div
+                            className="form-group"
+                            style={{ margin: "1rem 0" }}
+                        >
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={
+                                    import.meta.env.VITE_RECAPTCHA_SITE_KEY ||
+                                    "6LcboA8sAAAAAIv3Me2aWZ0pkFKLpddoVsEkPyHU"
+                                }
+                                onChange={setCaptchaToken}
                             />
                         </div>
 
