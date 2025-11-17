@@ -37,8 +37,13 @@ export default function ShowVinModal({
         }
     }, [isOpen, vinId]);
 
-    const imageSrc = vin?.image
-        ? `/storage/images/upload/${vin.image}`
+    const imageSrc = vin?.image_url
+        ? vin.image_url
+        : vin?.image
+        ? new URL(
+              `/storage/images/upload/${vin.image}`,
+              window.location.origin
+          ).toString()
         : "/images/Image-Accueil.jpg";
 
     const nomComplet = vin

@@ -21,7 +21,12 @@ export default function VinCard({ vin, onUpdate, onDelete }) {
             : vin.pays?.nom_pays || vin.pays_name || "—";
     const image =
         vin.image_url ||
-        (vin.image ? `/storage/images/upload/${vin.image}` : null);
+        (vin.image
+            ? new URL(
+                  `/storage/images/upload/${vin.image}`,
+                  window.location.origin
+              ).toString()
+            : null);
 
     return (
         <>
