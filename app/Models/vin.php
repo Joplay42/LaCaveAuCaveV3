@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 
 class vin extends Model
 {
@@ -24,17 +22,6 @@ class vin extends Model
         'prix',
         'efface',
     ];
-
-    protected $appends = ['image_url'];
-
-    public function getImageUrlAttribute()
-    {
-        if (!$this->image) {
-            return null;
-        }
-        $relative = '/storage/images/upload/' . ltrim($this->image, '/');
-        return URL::to($relative);
-    }
 
     // Relations
     public function millesime()
