@@ -6,6 +6,7 @@ import About from "../pages/About";
 import Celliers from "../pages/Celliers";
 import Cellier from "../pages/Cellier";
 import Vins from "../pages/Vins";
+import Vin from "../pages/Vin";
 import EditVin from "../pages/EditVin";
 import ConfirmDeleteVin from "../pages/ConfirmDeleteVin";
 import Pays from "../pages/Pays";
@@ -24,6 +25,7 @@ export default function AppRoutes() {
                 <Route path="/celliers" element={<Celliers />} />
                 <Route path="/celliers/:id" element={<Cellier />} />
                 <Route path="/vins" element={<Vins />} />
+                <Route path="/vins/:id" element={<Vin />} />
                 <Route path="/vins/:id/edit" element={<EditVin />} />
                 <Route path="/vins/:id/delete" element={<ConfirmDeleteVin />} />
                 <Route path="/manage/vins" element={<VinsManager />} />

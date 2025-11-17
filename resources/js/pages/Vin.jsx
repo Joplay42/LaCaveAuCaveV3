@@ -38,8 +38,13 @@ export default function Vin() {
         );
     }
 
-    const imageSrc = vin.image
-        ? `/storage/images/upload/${vin.image}`
+    const imageSrc = vin.image_url
+        ? vin.image_url
+        : vin.image
+        ? new URL(
+              `/storage/images/upload/${vin.image}`,
+              window.location.origin
+          ).toString()
         : "/images/Image-Accueil.jpg";
     const nomComplet = `${vin.nom_vin || ""}${
         vin.millesime && vin.millesime.annee ? " · " + vin.millesime.annee : ""
