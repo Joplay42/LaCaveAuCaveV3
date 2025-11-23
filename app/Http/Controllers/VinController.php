@@ -43,32 +43,32 @@ class VinController extends Controller
             'id_region' => 'required',
             'cepage' => 'required',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:4096',
             'prix' => 'required'
         ]);
 
-        // Validate the file format
-        if ($request->file('image')->isValid()) {
-            $image = $request->file('image');
-            $fileName = time() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('images/upload', $fileName, 'public');
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->with('warning', 'Tous les champs sont requis');
         }
 
-        if ($validator->fails()) {
-            return redirect()->back()->with('warning', 'Tous les champs sont requis');
-        } else {
-            Vin::create([
-                'nom_vin' => $request->input('nom_vin'),
-                'id_millesime' => $request->input('id_millesime'),
-                'id_pays' => $request->input('id_pays'),
-                'id_region' => $request->input('id_region'),
-                'cepage' => $request->input('cepage'),
-                'description' => $request->input('description'),
-                'image' => $fileName,
-                'prix' => $request->input('prix'),
-            ]);
-            return redirect('/')->with('success', 'article Ajouté avec succès');
+        $imagePath = null;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Stocke dans storage/app/public/images (grâce au disk "public")
+            // Retourne un chemin relatif du type images/nomfichier.ext
+            $imagePath = $request->file('image')->store('images', 'public');
         }
+
+        Vin::create([
+            'nom_vin' => $request->input('nom_vin'),
+            'id_millesime' => $request->input('id_millesime'),
+            'id_pays' => $request->input('id_pays'),
+            'id_region' => $request->input('id_region'),
+            'cepage' => $request->input('cepage'),
+            'description' => $request->input('description'),
+            'image' => $imagePath, // on sauvegarde le chemin relatif
+            'prix' => $request->input('prix'),
+        ]);
+        return redirect('/')->with('success', 'Article ajouté avec succès');
     }
 
     /**
@@ -104,35 +104,32 @@ class VinController extends Controller
             'id_region' => 'required',
             'cepage' => 'required',
             'description' => 'required',
-            'image' => 'image|mimes:jpg,png,jpeg,gif,svg',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:4096',
             'prix' => 'required'
         ]);
 
-        // Validate the file format
-        if ($request->file('image') !== null) {
-            $image = $request->file('image');
-            $fileName = time() . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('images/upload', $fileName, 'public');
-        } else {
-            $fileName = Vin::findOrFail($id)->image;
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->with('warning', 'Tous les champs sont requis');
         }
 
-        if ($validator->fails()) {
-            return redirect()->back()->with('warning', 'Tous les champs sont requis');
-        } else {
-            $vin = Vin::findOrFail($id);
-            $vin->update([
-                'nom_vin' => $request->input('nom_vin'),
-                'id_millesime' => $request->input('id_millesime'),
-                'id_pays' => $request->input('id_pays'),
-                'id_region' => $request->input('id_region'),
-                'cepage' => $request->input('cepage'),
-                'description' => $request->input('description'),
-                'image' => $fileName,
-                'prix' => $request->input('prix'),
-            ]);
-            return redirect('/')->with('success', 'article Modifié avec succès');
+        $vin = Vin::findOrFail($id);
+
+        $imagePath = $vin->image; // conserver l'ancienne si pas de nouvelle
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('images', 'public');
         }
+
+        $vin->update([
+            'nom_vin' => $request->input('nom_vin'),
+            'id_millesime' => $request->input('id_millesime'),
+            'id_pays' => $request->input('id_pays'),
+            'id_region' => $request->input('id_region'),
+            'cepage' => $request->input('cepage'),
+            'description' => $request->input('description'),
+            'image' => $imagePath,
+            'prix' => $request->input('prix'),
+        ]);
+        return redirect('/')->with('success', 'Article modifié avec succès');
     }
 
     /**
