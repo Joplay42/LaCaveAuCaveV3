@@ -318,6 +318,13 @@ p {
     align-items: start;
 }
 
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
 /* --- Améliorations visuelles des cartes de vin --- */
 
 .carteVin,
